@@ -15,6 +15,7 @@ const uploadRoutes = require('./routes/upload');
 const userRoutes = require('./routes/users');
 const orderRoutes = require('./routes/orders');
 const deliveryRoutes = require('./routes/delivery');
+const communicationRoutes = require('./routes/communication');
 
 // Import middlewares
 const errorHandler = require('./middlewares/errorHandler');
@@ -43,6 +44,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/delivery', deliveryRoutes);
+app.use('/api/communication', communicationRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {
