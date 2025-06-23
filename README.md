@@ -15,6 +15,7 @@ UI/
 ├── delivery.html               # Dashboard giao hàng
 ├── delivery-history.html       # Lịch sử giao hàng
 ├── emergency-report.html       # Báo cáo sự cố khẩn cấp
+├── category.html               # Quản lý danh mục sản phẩm
 ├── css/
 │   ├── style.css              # CSS chính (theme trắng-đỏ)
 │   ├── refund.css             # CSS cho module hoàn trả
@@ -22,7 +23,8 @@ UI/
 │   ├── user-profile.css       # CSS cho profile user
 │   ├── staff-management.css   # CSS cho quản lý nhân viên
 │   ├── customer-history.css   # CSS cho lịch sử khách hàng
-│   └── delivery.css           # CSS cho hệ thống giao hàng
+│   ├── delivery.css           # CSS cho hệ thống giao hàng
+│   └── category.css           # CSS cho quản lý danh mục
 ├── js/
 │   ├── script.js              # JavaScript chính
 │   ├── refund.js              # JS cho module hoàn trả
@@ -32,7 +34,8 @@ UI/
 │   ├── customer-history.js    # JS cho lịch sử khách hàng
 │   ├── delivery.js            # JS cho dashboard giao hàng
 │   ├── delivery-history.js    # JS cho lịch sử giao hàng
-│   └── emergency-report.js    # JS cho báo cáo sự cố
+│   ├── emergency-report.js    # JS cho báo cáo sự cố
+│   └── category.js            # JS cho quản lý danh mục
 └── images/                     # Thư mục hình ảnh
 ```
 
@@ -108,6 +111,40 @@ UI/
 - **Emergency Guidelines**: Hướng dẫn xử lý sự cố
 - **Auto-save Draft**: Tự động lưu nháp báo cáo
 - **Recent Reports**: Hiển thị các báo cáo gần đây
+
+### 8. Quản lý danh mục sản phẩm (Category Management - category.html)
+
+#### 8.1. Tính năng chính
+- **Dashboard Statistics**: Thống kê tổng quan (tổng danh mục, đang hiển thị, đã ẩn, tổng sản phẩm)
+- **Category Tree View**: Hiển thị cây danh mục với khả năng expand/collapse
+- **Multi-view Display**: 3 chế độ xem (Card, Table, Tree) với toggle linh hoạt
+- **Advanced CRUD**: Tạo, đọc, cập nhật, xóa danh mục với validation đầy đủ
+- **Hierarchical Structure**: Hỗ trợ danh mục cha-con không giới hạn cấp độ
+- **Bulk Operations**: Thao tác hàng loạt (hiển thị/ẩn/xóa nhiều danh mục)
+
+#### 8.2. Tính năng nâng cao
+- **Smart Search & Filter**: Tìm kiếm thông minh với filter theo trạng thái, danh mục cha
+- **Flexible Sorting**: Sắp xếp theo tên, ngày tạo, số sản phẩm, thứ tự hiển thị
+- **Rich Category Editor**: Form chi tiết với hình ảnh, icon, màu sắc, SEO
+- **Quick Edit Modal**: Chỉnh sửa nhanh các thông tin cơ bản
+- **Draft Auto-save**: Tự động lưu nháp khi soạn thảo
+- **Export/Import**: Xuất dữ liệu CSV, nhập từ file
+
+#### 8.3. UI/UX Features
+- **Responsive Design**: Tối ưu cho mobile, tablet, desktop
+- **Modern Interface**: Card-based design với hover effects
+- **Color-coded Categories**: Mỗi danh mục có màu sắc riêng biệt
+- **Icon Integration**: FontAwesome icons cho visual appeal
+- **Smooth Animations**: Transition effects cho user experience
+- **Toast Notifications**: Thông báo real-time cho các thao tác
+
+#### 8.4. Technical Features
+- **Form Validation**: Validation real-time với error handling
+- **Image Upload**: Preview và upload hình ảnh danh mục
+- **SEO Optimization**: Meta title, description, keywords cho mỗi danh mục
+- **Pagination**: Phân trang cho large datasets
+- **Local Storage**: Lưu draft và user preferences
+- **Data Export**: Export CSV với full category data
 
 ## Thiết kế và UX/UI
 
