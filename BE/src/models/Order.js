@@ -185,6 +185,36 @@ const orderSchema = new mongoose.Schema({
       default: 'delivery_proof'
     },
     description: String
+  }],
+  // Communication History
+  communicationHistory: [{
+    type: { 
+      type: String, 
+      enum: ['call', 'sms', 'email', 'chat', 'whatsapp'],
+      required: true
+    },
+    method: { 
+      type: String, 
+      enum: ['outgoing', 'incoming'],
+      required: true
+    },
+    message: { type: String, required: true },
+    duration: Number, // For calls (in seconds)
+    outcome: { 
+      type: String, 
+      enum: ['connected', 'no_answer', 'busy', 'voicemail', 'delivered', 'failed', 'read', 'sent', 'initiated', 'completed'],
+      required: true
+    },
+    timestamp: { type: Date, default: Date.now },
+    initiatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    phoneNumber: String,
+    phoneType: { 
+      type: String, 
+      enum: ['primary', 'alternate', 'shipping']
+    },
+    template: String, // SMS template used
+    followUpRequired: { type: Boolean, default: false },
+    followUpDate: Date
   }]
 }, {
   timestamps: true
