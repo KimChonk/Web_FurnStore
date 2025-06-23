@@ -1,11 +1,11 @@
-# Furniture Store API - Authentication & Authorization
+# Furniture Store API - Authentication & User Management
 
 ## Overview
-Complete authentication and authorization system with role-based access control for the Furniture Store application.
+Complete backend system for furniture store with authentication, authorization, and comprehensive user management features.
 
 ## Features Implemented
 
-### 🔐 Authentication
+### 🔐 Authentication & Authorization
 - **User Registration** - Register with email/password
 - **User Login** - Login with email/password
 - **Google OAuth Login** - Quick login with Google account
@@ -13,132 +13,52 @@ Complete authentication and authorization system with role-based access control 
 - **Password Reset** - Forgot password functionality
 - **Email Verification** - Verify email addresses
 
+### 👤 User Management
+- **User Profile Management** - Complete profile system with personal info, addresses, preferences
+- **Staff Account Management** - Admin can create and manage staff accounts
+- **Customer History** - Complete purchase history tracking and analytics
+- **Role-based Access Control** - 5 different user roles with specific permissions
+- **Membership System** - Bronze, Silver, Gold, Platinum levels based on spending
+- **User Statistics** - Purchase analytics, engagement scoring, activity reports
+
 ### 🛡️ Security Features
 - **Password Hashing** - bcrypt with salt rounds
 - **Account Lockout** - Lock accounts after failed attempts
 - **Rate Limiting** - Prevent brute force attacks
 - **Input Validation** - Validate all user inputs
 - **JWT Secure Tokens** - Secure token generation
-- **Role-based Access Control** - 5 different user roles
+- **Data Sanitization** - Filter sensitive data in responses
 
 ### 👥 User Roles
-1. **customer** - Regular customers
+1. **customer** - Regular customers with purchase history access
 2. **delivery** - Delivery staff
 3. **warehouse_manager** - Warehouse management
-4. **customer_service** - Customer support
-5. **admin** - System administrators
+4. **customer_service** - Customer support with customer data access
+5. **admin** - System administrators with full access
 
 ## API Endpoints
 
-### Public Endpoints
+### Authentication Endpoints
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - User login
+- `POST /api/auth/google` - Google OAuth login
+- `POST /api/auth/forgotpassword` - Request password reset
+- `PUT /api/auth/resetpassword/:token` - Reset password
+- `GET /api/auth/me` - Get current user info
+- `PUT /api/auth/updatedetails` - Update user details
+- `PUT /api/auth/updatepassword` - Change password
+- `POST /api/auth/logout` - User logout
 
-#### Register User
-```http
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "password123",
-  "phone": "0123456789",
-  "role": "customer"
-}
-```
-
-#### Login User
-```http
-POST /api/auth/login
-Content-Type: application/json
-
-{
-  "email": "john@example.com",
-  "password": "password123"
-}
-```
-
-#### Google OAuth Login
-```http
-POST /api/auth/google
-Content-Type: application/json
-
-{
-  "googleId": "google_user_id",
-  "email": "john@gmail.com",
-  "name": "John Doe",
-  "avatar": "https://avatar-url.com"
-}
-```
-
-#### Forgot Password
-```http
-POST /api/auth/forgotpassword
-Content-Type: application/json
-
-{
-  "email": "john@example.com"
-}
-```
-
-#### Reset Password
-```http
-PUT /api/auth/resetpassword/:resettoken
-Content-Type: application/json
-
-{
-  "password": "newpassword123"
-}
-```
-
-#### Verify Email
-```http
-GET /api/auth/verifyemail/:verifytoken
-```
-
-### Protected Endpoints (Require Authentication)
-
-#### Get Current User
-```http
-GET /api/auth/me
-Authorization: Bearer <jwt_token>
-```
-
-#### Update User Details
-```http
-PUT /api/auth/updatedetails
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-
-{
-  "name": "John Updated",
-  "phone": "0987654321",
-  "address": {
-    "street": "123 Main St",
-    "city": "Ho Chi Minh City",
-    "district": "District 1",
-    "ward": "Ward 1",
-    "zipCode": "70000"
-  }
-}
-```
-
-#### Update Password
-```http
-PUT /api/auth/updatepassword
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-
-{
-  "currentPassword": "oldpassword123",
-  "newPassword": "newpassword123"
-}
-```
-
-#### Logout
-```http
-POST /api/auth/logout
-Authorization: Bearer <jwt_token>
-```
+### User Management Endpoints
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update user profile
+- `GET /api/users/history` - Get customer purchase history (customers only)
+- `GET /api/users/statistics` - Get customer statistics (customers only)
+- `GET /api/users` - Get all users (admin only)
+- `GET /api/users/:id` - Get user by ID (admin only)
+- `POST /api/users/staff` - Create staff account (admin only)
+- `PUT /api/users/:id` - Update user (admin only)
+- `DELETE /api/users/:id` - Deactivate user (admin only)
 
 ## Rate Limits
 - **Registration**: 3 attempts per hour
@@ -202,15 +122,34 @@ npm run dev
 
 4. API will be available at `http://localhost:3000`
 
-## Testing the API
+## Documentation
+- [Authentication API](README.md#authentication-endpoints) - Complete auth system documentation
+- [User Management API](USER_MANAGEMENT_API.md) - Detailed user management documentation
 
-You can test the API using tools like Postman, Thunder Client, or curl. The authentication endpoints are now fully functional and ready for integration with the frontend.
+## Quick Start Examples
 
-## Next Steps
+### Authentication
+```bash
+# Register new user
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe","email":"john@example.com","password":"password123"}'
 
-The authentication system is complete and ready. Next modules to implement:
-1. Product Management
-2. Order Management
-3. Inventory Management
-4. Customer Support System
-5. Delivery Management
+# Login
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"john@example.com","password":"password123"}'
+```
+
+### User Management
+```bash
+# Get user profile
+curl -X GET http://localhost:3000/api/users/profile \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Create staff account (admin only)
+curl -X POST http://localhost:3000/api/users/staff \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Staff Member","email":"staff@company.com","password":"password123","role":"warehouse_manager"}'
+```

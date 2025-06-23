@@ -1,28 +1,40 @@
 const express = require('express');
+const {
+  getUserProfile,
+  updateUserProfile,
+  getCustomerHistory,
+  getCustomerStatistics,
+  getAllUsers,
+  getUserById,
+  createStaffAccount,
+  updateUserById,
+  deleteUserById
+} = require('../controllers/userController');
+
 const { auth, adminAuth } = require('../middlewares/auth');
+const {
+  validateCreateStaff,
+  validateUpdateUser,
+  validateProfileUpdate,
+  validateQueryParams,
+  requireCustomerRole
+} = require('../middlewares/userValidation');
 
 const router = express.Router();
 
-// @desc    Get all users (Admin only)
-// @route   GET /api/users
-// @access  Private/Admin
-router.get('/', auth, adminAuth, (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Users management endpoint - Coming soon',
-    data: []
-  });
-});
+// User profile routes (authenticated users)
+router.get('/profile', auth, getUserProfile);
+router.put('/profile', auth, validateProfileUpdate, updateUserProfile);
 
-// @desc    Get user profile
-// @route   GET /api/users/profile
-// @access  Private
-router.get('/profile', auth, (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'User profile endpoint - Coming soon',
-    data: req.user
-  });
-});
+// Customer history routes (customers only)
+router.get('/history', auth, requireCustomerRole, validateQueryParams, getCustomerHistory);
+router.get('/statistics', auth, requireCustomerRole, getCustomerStatistics);
+
+// Admin routes for user management
+router.get('/', auth, adminAuth, validateQueryParams, getAllUsers);
+router.get('/:id', auth, adminAuth, getUserById);
+router.post('/staff', auth, adminAuth, validateCreateStaff, createStaffAccount);
+router.put('/:id', auth, adminAuth, validateUpdateUser, updateUserById);
+router.delete('/:id', auth, adminAuth, deleteUserById);
 
 module.exports = router;
