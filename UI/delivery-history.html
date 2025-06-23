@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử giao hàng - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/delivery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-couch"></i>
+                <span>FurniStore</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="refund.html" class="nav-link">
+                        <i class="fas fa-undo"></i>
+                        Hoàn trả
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="promotion.html" class="nav-link">
+                        <i class="fas fa-tag"></i>
+                        Khuyến mãi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="customer-history.html" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        Lịch sử KH
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="staff-management.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Nhân viên
+                    </a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-truck"></i>
+                        Giao hàng
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="delivery.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="delivery-history.html" class="active"><i class="fas fa-history"></i> Lịch sử</a></li>
+                        <li><a href="emergency-report.html"><i class="fas fa-exclamation-triangle"></i> Báo cáo khẩn cấp</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="nav-user">
+                <div class="user-dropdown">
+                    <div class="user-info">
+                        <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">Shipper ABC</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-menu">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="#"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h1><i class="fas fa-history"></i> Lịch sử giao hàng</h1>
+                    <p>Xem lại tất cả các đơn hàng đã giao và thống kê hiệu suất</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="exportHistory()">
+                        <i class="fas fa-download"></i>
+                        Xuất báo cáo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalDelivered">0</h3>
+                        <p>Giao thành công</p>
+                        <span class="stat-change positive">+12% so với tháng trước</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalFailed">0</h3>
+                        <p>Giao thất bại</p>
+                        <span class="stat-change negative">-5% so với tháng trước</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card info">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="avgDeliveryTime">0</h3>
+                        <p>Thời gian TB (phút)</p>
+                        <span class="stat-change positive">-8% so với tháng trước</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="successRate">0%</h3>
+                        <p>Tỷ lệ thành công</p>
+                        <span class="stat-change positive">+3% so với tháng trước</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="history-controls">
+                <div class="controls-left">
+                    <div class="filter-group">
+                        <label for="dateRange">Khoảng thời gian:</label>
+                        <select id="dateRange" class="form-select">
+                            <option value="today">Hôm nay</option>
+                            <option value="week">7 ngày qua</option>
+                            <option value="month" selected>30 ngày qua</option>
+                            <option value="quarter">3 tháng qua</option>
+                            <option value="year">12 tháng qua</option>
+                            <option value="custom">Tùy chỉnh</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="statusFilter">Trạng thái:</label>
+                        <select id="statusFilter" class="form-select">
+                            <option value="all">Tất cả</option>
+                            <option value="delivered">Giao thành công</option>
+                            <option value="failed">Giao thất bại</option>
+                            <option value="returned">Hoàn trả</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sortBy">Sắp xếp:</label>
+                        <select id="sortBy" class="form-select">
+                            <option value="newest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                            <option value="value">Giá trị</option>
+                            <option value="duration">Thời gian giao</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="controls-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="historySearch" placeholder="Tìm kiếm theo mã đơn, khách hàng...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Date Range Modal -->
+            <div id="dateRangeModal" class="modal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Chọn khoảng thời gian</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="date-range-form">
+                            <div class="form-group">
+                                <label for="startDate">Từ ngày:</label>
+                                <input type="date" id="startDate" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">Đến ngày:</label>
+                                <input type="date" id="endDate" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary close-modal">Hủy</button>
+                        <button class="btn btn-primary" onclick="applyDateRange()">Áp dụng</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History List -->
+            <div class="history-section">
+                <div class="section-header">
+                    <h2>Danh sách đơn hàng</h2>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="card">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="toggle-btn" data-view="table">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card View -->
+                <div id="cardView" class="history-grid">
+                    <!-- History cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Table View -->
+                <div id="tableView" class="history-table" style="display: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Khách hàng</th>
+                                <th>Địa chỉ</th>
+                                <th>Trạng thái</th>
+                                <th>Thời gian giao</th>
+                                <th>Giá trị</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn" id="prevPage" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="page-numbers" id="pageNumbers">
+                        <!-- Page numbers will be populated by JavaScript -->
+                    </div>
+                    <button class="page-btn" id="nextPage">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h2>Biểu đồ hiệu suất</h2>
+                    <div class="chart-controls">
+                        <button class="chart-btn active" data-chart="delivery">Giao hàng</button>
+                        <button class="chart-btn" data-chart="success">Tỷ lệ thành công</button>
+                        <button class="chart-btn" data-chart="time">Thời gian</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delivery Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Chi tiết đơn hàng <span id="detailDeliveryId"></span></h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="deliveryDetailContent">
+                    <!-- Detail content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/delivery-history.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo sự cố khẩn cấp - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/delivery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-couch"></i>
+                <span>FurniStore</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="refund.html" class="nav-link">
+                        <i class="fas fa-undo"></i>
+                        Hoàn trả
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="promotion.html" class="nav-link">
+                        <i class="fas fa-tag"></i>
+                        Khuyến mãi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="customer-history.html" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        Lịch sử KH
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="staff-management.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Nhân viên
+                    </a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-truck"></i>
+                        Giao hàng
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="delivery.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="delivery-history.html"><i class="fas fa-history"></i> Lịch sử</a></li>
+                        <li><a href="emergency-report.html" class="active"><i class="fas fa-exclamation-triangle"></i> Báo cáo khẩn cấp</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="nav-user">
+                <div class="user-dropdown">
+                    <div class="user-info">
+                        <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">Shipper ABC</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-menu">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="#"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header emergency">
+                <div class="header-content">
+                    <h1><i class="fas fa-exclamation-triangle"></i> Báo cáo sự cố khẩn cấp</h1>
+                    <p>Báo cáo ngay các sự cố nghiêm trọng trong quá trình giao hàng</p>
+                </div>
+                <div class="emergency-hotline">
+                    <div class="hotline-card">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h3>Hotline khẩn cấp</h3>
+                            <span class="hotline-number">1900-1234</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Emergency Buttons -->
+            <div class="emergency-quick-actions">
+                <h2>Sự cố thường gặp</h2>
+                <div class="quick-actions-grid">
+                    <button class="emergency-btn accident" onclick="quickReport('accident')">
+                        <i class="fas fa-car-crash"></i>
+                        <span>Tai nạn giao thông</span>
+                    </button>
+                    <button class="emergency-btn theft" onclick="quickReport('theft')">
+                        <i class="fas fa-user-ninja"></i>
+                        <span>Bị cướp/trộm</span>
+                    </button>
+                    <button class="emergency-btn damaged" onclick="quickReport('damaged')">
+                        <i class="fas fa-box-open"></i>
+                        <span>Hàng hóa bị hỏng</span>
+                    </button>
+                    <button class="emergency-btn vehicle" onclick="quickReport('vehicle')">
+                        <i class="fas fa-tools"></i>
+                        <span>Xe bị hỏng</span>
+                    </button>
+                    <button class="emergency-btn weather" onclick="quickReport('weather')">
+                        <i class="fas fa-cloud-rain"></i>
+                        <span>Thời tiết xấu</span>
+                    </button>
+                    <button class="emergency-btn health" onclick="quickReport('health')">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Sự cố sức khỏe</span>
+                    </button>
+                    <button class="emergency-btn security" onclick="quickReport('security')">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>An ninh/Bạo lực</span>
+                    </button>
+                    <button class="emergency-btn other" onclick="quickReport('other')">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Sự cố khác</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Emergency Report Form -->
+            <div class="emergency-form-section">
+                <h2>Báo cáo chi tiết sự cố</h2>
+                <form id="emergencyForm" class="emergency-form">
+                    <div class="form-grid">
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h3>Thông tin cơ bản</h3>
+                            
+                            <div class="form-group">
+                                <label for="incidentType">Loại sự cố *</label>
+                                <select id="incidentType" class="form-select" required>
+                                    <option value="">Chọn loại sự cố</option>
+                                    <option value="accident">Tai nạn giao thông</option>
+                                    <option value="theft">Bị cướp/trộm</option>
+                                    <option value="damaged">Hàng hóa bị hỏng</option>
+                                    <option value="vehicle">Xe bị hỏng</option>
+                                    <option value="weather">Thời tiết xấu</option>
+                                    <option value="health">Sự cố sức khỏe</option>
+                                    <option value="security">An ninh/Bạo lực</option>
+                                    <option value="customer">Sự cố với khách hàng</option>
+                                    <option value="other">Sự cố khác</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="severity">Mức độ nghiêm trọng *</label>
+                                <select id="severity" class="form-select" required>
+                                    <option value="">Chọn mức độ</option>
+                                    <option value="critical">Nghiêm trọng - Cần hỗ trợ ngay</option>
+                                    <option value="high">Cao - Cần xử lý trong 1 giờ</option>
+                                    <option value="medium">Trung bình - Cần xử lý trong ngày</option>
+                                    <option value="low">Thấp - Báo cáo thông tin</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="deliveryId">Mã đơn hàng (nếu có)</label>
+                                <input type="text" id="deliveryId" class="form-input" placeholder="VD: DH001">
+                            </div>
+                        </div>
+
+                        <!-- Location Information -->
+                        <div class="form-section">
+                            <h3>Vị trí sự cố</h3>
+                            
+                            <div class="form-group">
+                                <label for="incidentLocation">Địa điểm xảy ra sự cố *</label>
+                                <textarea id="incidentLocation" class="form-textarea" rows="3" 
+                                         placeholder="Mô tả chi tiết địa điểm, tên đường, landmark gần nhất..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gpsLocation">Tọa độ GPS (nếu có)</label>
+                                <div class="gps-input">
+                                    <input type="text" id="gpsLocation" class="form-input" 
+                                           placeholder="VD: 10.8231, 106.6297" readonly>
+                                    <button type="button" class="btn btn-outline" onclick="getCurrentLocation()">
+                                        <i class="fas fa-map-marker-alt"></i> Lấy vị trí
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="incidentTime">Thời gian xảy ra *</label>
+                                <input type="datetime-local" id="incidentTime" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <!-- Incident Details -->
+                        <div class="form-section full-width">
+                            <h3>Chi tiết sự cố</h3>
+                            
+                            <div class="form-group">
+                                <label for="incidentDescription">Mô tả chi tiết sự cố *</label>
+                                <textarea id="incidentDescription" class="form-textarea" rows="5" 
+                                         placeholder="Mô tả chi tiết những gì đã xảy ra, nguyên nhân, hậu quả..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="damageDescription">Thiệt hại (nếu có)</label>
+                                <textarea id="damageDescription" class="form-textarea" rows="3" 
+                                         placeholder="Mô tả thiệt hại về người, hàng hóa, phương tiện..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="actionsTaken">Hành động đã thực hiện</label>
+                                <textarea id="actionsTaken" class="form-textarea" rows="3" 
+                                         placeholder="Những gì bạn đã làm để xử lý tình huống..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Support Needed -->
+                        <div class="form-section">
+                            <h3>Hỗ trợ cần thiết</h3>
+                            
+                            <div class="form-group">
+                                <label>Loại hỗ trợ cần thiết *</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="supportNeeded" value="police">
+                                        <span class="checkmark"></span>
+                                        Cảnh sát
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="supportNeeded" value="medical">
+                                        <span class="checkmark"></span>
+                                        Y tế/Cấp cứu
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="supportNeeded" value="insurance">
+                                        <span class="checkmark"></span>
+                                        Bảo hiểm
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="supportNeeded" value="vehicle">
+                                        <span class="checkmark"></span>
+                                        Xe cứu hộ
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="supportNeeded" value="replacement">
+                                        <span class="checkmark"></span>
+                                        Shipper thay thế
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="supportNeeded" value="legal">
+                                        <span class="checkmark"></span>
+                                        Tư vấn pháp lý
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="urgencyNote">Ghi chú về tính khẩn cấp</label>
+                                <textarea id="urgencyNote" class="form-textarea" rows="3" 
+                                         placeholder="Thông tin bổ sung về mức độ khẩn cấp, thời gian cần hỗ trợ..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="form-section">
+                            <h3>Thông tin liên hệ</h3>
+                            
+                            <div class="form-group">
+                                <label for="reporterName">Người báo cáo *</label>
+                                <input type="text" id="reporterName" class="form-input" value="Shipper ABC" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reporterPhone">Số điện thoại *</label>
+                                <input type="tel" id="reporterPhone" class="form-input" 
+                                       placeholder="0123456789" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="alternateContact">Người liên hệ thay thế</label>
+                                <input type="text" id="alternateContact" class="form-input" 
+                                       placeholder="Tên và SĐT người có thể liên hệ">
+                            </div>
+                        </div>
+
+                        <!-- Evidence Upload -->
+                        <div class="form-section full-width">
+                            <h3>Bằng chứng</h3>
+                            
+                            <div class="form-group">
+                                <label for="evidencePhotos">Ảnh hiện trường</label>
+                                <div class="upload-area">
+                                    <input type="file" id="evidencePhotos" multiple accept="image/*" class="file-input">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-camera"></i>
+                                        <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
+                                        <small>Hỗ trợ JPG, PNG. Tối đa 10 ảnh.</small>
+                                    </div>
+                                </div>
+                                <div id="photoPreview" class="photo-preview"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="evidenceVideos">Video (nếu có)</label>
+                                <input type="file" id="evidenceVideos" multiple accept="video/*" class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="evidenceDocuments">Tài liệu khác</label>
+                                <input type="file" id="evidenceDocuments" multiple class="form-input">
+                                <small class="form-help">Giấy tờ, biên bản, báo cáo...</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="saveDraft()">
+                            <i class="fas fa-save"></i> Lưu nháp
+                        </button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-exclamation-triangle"></i> Gửi báo cáo khẩn cấp
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Emergency Guidelines -->
+            <div class="emergency-guidelines">
+                <h2>Hướng dẫn xử lý sự cố</h2>
+                <div class="guidelines-grid">
+                    <div class="guideline-card">
+                        <h3><i class="fas fa-shield-alt"></i> An toàn trước tiên</h3>
+                        <ul>
+                            <li>Đảm bảo an toàn cá nhân trước khi làm bất cứ điều gì</li>
+                            <li>Di chuyển đến nơi an toàn nếu có thể</li>
+                            <li>Gọi cấp cứu (115) nếu có người bị thương</li>
+                            <li>Gọi cảnh sát (113) nếu có sự cố nghiêm trọng</li>
+                        </ul>
+                    </div>
+
+                    <div class="guideline-card">
+                        <h3><i class="fas fa-camera"></i> Thu thập bằng chứng</h3>
+                        <ul>
+                            <li>Chụp ảnh hiện trường từ nhiều góc độ</li>
+                            <li>Ghi lại thông tin các bên liên quan</li>
+                            <li>Lưu trữ các tài liệu quan trọng</li>
+                            <li>Ghi âm/video nếu cần thiết và an toàn</li>
+                        </ul>
+                    </div>
+
+                    <div class="guideline-card">
+                        <h3><i class="fas fa-phone"></i> Báo cáo ngay lập tức</h3>
+                        <ul>
+                            <li>Gọi hotline công ty: 1900-1234</li>
+                            <li>Điền báo cáo chi tiết trên hệ thống</li>
+                            <li>Thông báo cho khách hàng (nếu ảnh hưởng đơn hàng)</li>
+                            <li>Cập nhật tình hình định kỳ</li>
+                        </ul>
+                    </div>
+
+                    <div class="guideline-card">
+                        <h3><i class="fas fa-hands-helping"></i> Hỗ trợ có sẵn</h3>
+                        <ul>
+                            <li>Hỗ trợ pháp lý 24/7</li>
+                            <li>Bảo hiểm toàn diện</li>
+                            <li>Xe cứu hộ khẩn cấp</li>
+                            <li>Tư vấn tâm lý sau sự cố</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Emergency Reports -->
+            <div class="recent-reports">
+                <h2>Báo cáo gần đây</h2>
+                <div id="recentReportsList" class="reports-list">
+                    <!-- Reports will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header success">
+                <h3><i class="fas fa-check-circle"></i> Báo cáo đã được gửi</h3>
+            </div>
+            <div class="modal-body">
+                <p>Báo cáo sự cố của bạn đã được ghi nhận và đang được xử lý.</p>
+                <div class="report-info">
+                    <p><strong>Mã báo cáo:</strong> <span id="reportId"></span></p>
+                    <p><strong>Thời gian:</strong> <span id="reportTime"></span></p>
+                    <p><strong>Trạng thái:</strong> <span class="status-badge processing">Đang xử lý</span></p>
+                </div>
+                <div class="next-steps">
+                    <h4>Bước tiếp theo:</h4>
+                    <ul>
+                        <li>Giữ máy luôn mở để nhận hỗ trợ</li>
+                        <li>Theo dõi cập nhật qua SMS/Email</li>
+                        <li>Cung cấp thêm thông tin nếu được yêu cầu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary close-modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/emergency-report.js"></script>
+</body>
+</html>

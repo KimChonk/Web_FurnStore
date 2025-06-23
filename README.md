@@ -12,20 +12,27 @@ UI/
 ├── user-profile.html           # Hồ sơ người dùng
 ├── staff-management.html       # Quản lý nhân viên (Admin)
 ├── customer-history.html       # Lịch sử khách hàng
+├── delivery.html               # Dashboard giao hàng
+├── delivery-history.html       # Lịch sử giao hàng
+├── emergency-report.html       # Báo cáo sự cố khẩn cấp
 ├── css/
 │   ├── style.css              # CSS chính (theme trắng-đỏ)
 │   ├── refund.css             # CSS cho module hoàn trả
 │   ├── promotion.css          # CSS cho module khuyến mãi
 │   ├── user-profile.css       # CSS cho profile user
 │   ├── staff-management.css   # CSS cho quản lý nhân viên
-│   └── customer-history.css   # CSS cho lịch sử khách hàng
+│   ├── customer-history.css   # CSS cho lịch sử khách hàng
+│   └── delivery.css           # CSS cho hệ thống giao hàng
 ├── js/
 │   ├── script.js              # JavaScript chính
 │   ├── refund.js              # JS cho module hoàn trả
 │   ├── promotion.js           # JS cho module khuyến mãi
 │   ├── user-profile.js        # JS cho profile user
 │   ├── staff-management.js    # JS cho quản lý nhân viên
-│   └── customer-history.js    # JS cho lịch sử khách hàng
+│   ├── customer-history.js    # JS cho lịch sử khách hàng
+│   ├── delivery.js            # JS cho dashboard giao hàng
+│   ├── delivery-history.js    # JS cho lịch sử giao hàng
+│   └── emergency-report.js    # JS cho báo cáo sự cố
 └── images/                     # Thư mục hình ảnh
 ```
 
@@ -74,6 +81,33 @@ UI/
 - Filter theo thời gian, status, amount
 - Export customer data
 - Order tracking và management
+
+### 7. Hệ thống quản lý giao hàng (Delivery Management)
+
+#### 7.1. Dashboard giao hàng (delivery.html)
+- **Status Bar**: Thống kê tổng quan (chờ xử lý, đang giao, hoàn thành, thất bại)
+- **Quick Actions**: Các thao tác nhanh cho shipper
+- **Delivery List**: Danh sách đơn hàng với filter theo trạng thái
+- **Real-time Updates**: Cập nhật trạng thái đơn hàng theo thời gian thực
+- **Modal xác nhận**: Giao thành công với upload ảnh minh chứng
+- **Modal báo cáo sự cố**: Báo cáo lỗi với mô tả chi tiết
+
+#### 7.2. Lịch sử giao hàng (delivery-history.html)
+- **Statistics Cards**: Thống kê hiệu suất giao hàng
+- **Advanced Filters**: Lọc theo thời gian, trạng thái, khách hàng
+- **View Toggle**: Chuyển đổi giữa card view và table view
+- **Performance Charts**: Biểu đồ hiệu suất với Chart.js
+- **Export Functionality**: Xuất báo cáo CSV
+- **Detailed View**: Modal chi tiết từng đơn hàng
+
+#### 7.3. Báo cáo sự cố khẩn cấp (emergency-report.html)
+- **Quick Emergency Buttons**: Các nút báo cáo sự cố nhanh
+- **Comprehensive Form**: Form báo cáo chi tiết với validation
+- **GPS Location**: Tự động lấy vị trí GPS hiện tại
+- **Photo/Video Upload**: Upload bằng chứng đa phương tiện
+- **Emergency Guidelines**: Hướng dẫn xử lý sự cố
+- **Auto-save Draft**: Tự động lưu nháp báo cáo
+- **Recent Reports**: Hiển thị các báo cáo gần đây
 
 ## Thiết kế và UX/UI
 
