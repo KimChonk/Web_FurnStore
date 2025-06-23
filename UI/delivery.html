@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Management - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/delivery.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-truck"></i> FurniStore Delivery</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="delivery.html" class="nav-link active">Giao hàng</a></li>
+                    <li><a href="delivery-history.html" class="nav-link">Lịch sử</a></li>
+                    <li><a href="emergency-report.html" class="nav-link">Báo cáo sự cố</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-hard-hat"></i>
+                        <span>Shipper Portal</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#help"><i class="fas fa-question-circle"></i> Trợ giúp</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                    <button class="emergency-btn" id="emergencyBtn">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Báo cáo khẩn cấp</span>
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Status Bar -->
+    <section class="status-bar">
+        <div class="container">
+            <div class="status-info">
+                <div class="status-item">
+                    <i class="fas fa-clock"></i>
+                    <span class="status-label">Ca làm việc:</span>
+                    <span class="status-value">08:00 - 17:00</span>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="status-label">Khu vực:</span>
+                    <span class="status-value">Quận 1, TP.HCM</span>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-truck"></i>
+                    <span class="status-label">Xe:</span>
+                    <span class="status-value">51A-12345</span>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-signal"></i>
+                    <span class="status-label">GPS:</span>
+                    <span class="status-value online">Hoạt động</span>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <button class="quick-btn" id="checkInBtn">
+                    <i class="fas fa-clock"></i>
+                    <span>Check In</span>
+                </button>
+                <button class="quick-btn" id="locationBtn">
+                    <i class="fas fa-location-arrow"></i>
+                    <span>Vị trí</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="delivery-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-shipping-fast"></i> Delivery Dashboard</h1>
+                <p>Quản lý và theo dõi đơn hàng giao hàng hôm nay</p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number" id="totalOrders">8</span>
+                    <span class="stat-label">Đơn hàng hôm nay</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number" id="completedOrders">3</span>
+                    <span class="stat-label">Đã giao</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number" id="remainingOrders">5</span>
+                    <span class="stat-label">Còn lại</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Dashboard -->
+    <section class="quick-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <div class="dashboard-card priority">
+                    <div class="card-header">
+                        <h3><i class="fas fa-exclamation-circle"></i> Ưu tiên cao</h3>
+                        <span class="count">2</span>
+                    </div>
+                    <div class="card-content">
+                        <p>Đơn hàng cần giao trong 2 giờ tới</p>
+                        <button class="card-action-btn">Xem chi tiết</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card next-delivery">
+                    <div class="card-header">
+                        <h3><i class="fas fa-route"></i> Đơn tiếp theo</h3>
+                        <span class="time">14:30</span>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Nguyễn Thị Lan</strong></p>
+                        <p>123 Lê Văn Sỹ, Phú Nhuận</p>
+                        <button class="card-action-btn primary">Bắt đầu giao</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card route-info">
+                    <div class="card-header">
+                        <h3><i class="fas fa-map"></i> Tuyến đường</h3>
+                        <span class="distance">45.2km</span>
+                    </div>
+                    <div class="card-content">
+                        <p>Tổng quãng đường hôm nay</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <span class="progress-text">60% hoàn thành</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card fuel-info">
+                    <div class="card-header">
+                        <h3><i class="fas fa-gas-pump"></i> Nhiên liệu</h3>
+                        <span class="fuel-level">75%</span>
+                    </div>
+                    <div class="card-content">
+                        <p>Đủ cho 3-4 đơn hàng tiếp theo</p>
+                        <button class="card-action-btn">Tìm trạm xăng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery List -->
+    <section class="delivery-main">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-list"></i> Danh sách đơn hàng</h2>
+                <div class="header-actions">
+                    <div class="filter-group">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="assigned">Đã phân công</option>
+                            <option value="picked_up">Đã lấy hàng</option>
+                            <option value="in_transit">Đang giao</option>
+                            <option value="delivered">Đã giao</option>
+                            <option value="failed">Thất bại</option>
+                        </select>
+                        <select id="priorityFilter" class="filter-select">
+                            <option value="">Tất cả mức độ</option>
+                            <option value="high">Ưu tiên cao</option>
+                            <option value="medium">Trung bình</option>
+                            <option value="low">Thấp</option>
+                        </select>
+                    </div>
+                    <button class="action-btn" id="optimizeRouteBtn">
+                        <i class="fas fa-route"></i>
+                        Tối ưu tuyến đường
+                    </button>
+                </div>
+            </div>
+
+            <div class="delivery-list">
+                <!-- High Priority Order -->
+                <div class="delivery-item priority-high" data-status="assigned" data-priority="high">
+                    <div class="delivery-header">
+                        <div class="order-info">
+                            <span class="order-id">#ORD-2025-001</span>
+                            <span class="priority-badge high">Ưu tiên cao</span>
+                            <span class="time-badge urgent">Giao trước 15:00</span>
+                        </div>
+                        <div class="delivery-status">
+                            <span class="status-badge assigned">Đã phân công</span>
+                            <div class="delivery-actions">
+                                <button class="action-btn-small" title="Gọi điện">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn-small" title="Xem bản đồ">
+                                    <i class="fas fa-map"></i>
+                                </button>
+                                <button class="action-btn-small" title="Cập nhật">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="customer-info">
+                            <div class="customer-detail">
+                                <h4><i class="fas fa-user"></i> Nguyễn Thị Lan</h4>
+                                <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                                <p><i class="fas fa-map-marker-alt"></i> 123 Lê Văn Sỹ, P.1, Phú Nhuận, TP.HCM</p>
+                            </div>
+                            <div class="distance-info">
+                                <span class="distance">2.5km</span>
+                                <span class="eta">~15 phút</span>
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="products">
+                                <h5>Sản phẩm:</h5>
+                                <ul>
+                                    <li>Sofa da cao cấp 3 chỗ ngồi (1x)</li>
+                                    <li>Bàn coffee gỗ sồi (1x)</li>
+                                </ul>
+                            </div>
+                            <div class="delivery-info">
+                                <p><strong>Tổng tiền:</strong> 4.250.000 VNĐ</p>
+                                <p><strong>Thanh toán:</strong> COD</p>
+                                <p><strong>Ghi chú:</strong> Giao tại tầng 5, thang máy có thể sử dụng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-footer">
+                        <div class="action-buttons">
+                            <button class="btn-secondary" onclick="updateDeliveryStatus(this, 'picked_up')">
+                                <i class="fas fa-box"></i>
+                                Đã lấy hàng
+                            </button>
+                            <button class="btn-primary" onclick="startDelivery(this)">
+                                <i class="fas fa-truck"></i>
+                                Bắt đầu giao hàng
+                            </button>
+                        </div>
+                        <div class="timeline">
+                            <div class="timeline-item completed">
+                                <i class="fas fa-check"></i>
+                                <span>Đã phân công (09:30)</span>
+                            </div>
+                            <div class="timeline-item">
+                                <i class="fas fa-box"></i>
+                                <span>Lấy hàng</span>
+                            </div>
+                            <div class="timeline-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Đang giao</span>
+                            </div>
+                            <div class="timeline-item">
+                                <i class="fas fa-home"></i>
+                                <span>Hoàn thành</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Transit Order -->
+                <div class="delivery-item" data-status="in_transit" data-priority="medium">
+                    <div class="delivery-header">
+                        <div class="order-info">
+                            <span class="order-id">#ORD-2025-002</span>
+                            <span class="priority-badge medium">Trung bình</span>
+                            <span class="time-badge">Giao trước 17:00</span>
+                        </div>
+                        <div class="delivery-status">
+                            <span class="status-badge in-transit">Đang giao</span>
+                            <div class="delivery-actions">
+                                <button class="action-btn-small" title="Gọi điện">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn-small" title="Xem bản đồ">
+                                    <i class="fas fa-map"></i>
+                                </button>
+                                <button class="action-btn-small" title="Chụp ảnh">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="customer-info">
+                            <div class="customer-detail">
+                                <h4><i class="fas fa-user"></i> Trần Văn Minh</h4>
+                                <p><i class="fas fa-phone"></i> +84 987 654 321</p>
+                                <p><i class="fas fa-map-marker-alt"></i> 456 Nguyễn Đình Chiểu, P.5, Q.3, TP.HCM</p>
+                            </div>
+                            <div class="distance-info">
+                                <span class="distance">1.2km</span>
+                                <span class="eta">~8 phút</span>
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="products">
+                                <h5>Sản phẩm:</h5>
+                                <ul>
+                                    <li>Bàn làm việc gỗ công nghiệp (1x)</li>
+                                    <li>Ghế văn phòng ergonomic (1x)</li>
+                                </ul>
+                            </div>
+                            <div class="delivery-info">
+                                <p><strong>Tổng tiền:</strong> 1.850.000 VNĐ</p>
+                                <p><strong>Thanh toán:</strong> Đã thanh toán online</p>
+                                <p><strong>Ghi chú:</strong> Liên hệ trước 15 phút</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-footer">
+                        <div class="action-buttons">
+                            <button class="btn-warning" onclick="reportIssue(this)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Báo cáo vấn đề
+                            </button>
+                            <button class="btn-success" onclick="confirmDelivery(this)">
+                                <i class="fas fa-check-circle"></i>
+                                Xác nhận giao thành công
+                            </button>
+                        </div>
+                        <div class="timeline">
+                            <div class="timeline-item completed">
+                                <i class="fas fa-check"></i>
+                                <span>Đã phân công (10:15)</span>
+                            </div>
+                            <div class="timeline-item completed">
+                                <i class="fas fa-box"></i>
+                                <span>Đã lấy hàng (11:30)</span>
+                            </div>
+                            <div class="timeline-item active">
+                                <i class="fas fa-truck"></i>
+                                <span>Đang giao (13:45)</span>
+                            </div>
+                            <div class="timeline-item">
+                                <i class="fas fa-home"></i>
+                                <span>Hoàn thành</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Order -->
+                <div class="delivery-item completed" data-status="delivered" data-priority="low">
+                    <div class="delivery-header">
+                        <div class="order-info">
+                            <span class="order-id">#ORD-2025-003</span>
+                            <span class="priority-badge low">Thấp</span>
+                            <span class="time-badge completed">Đã giao (12:30)</span>
+                        </div>
+                        <div class="delivery-status">
+                            <span class="status-badge delivered">Đã giao</span>
+                            <div class="delivery-actions">
+                                <button class="action-btn-small" title="Xem ảnh">
+                                    <i class="fas fa-image"></i>
+                                </button>
+                                <button class="action-btn-small" title="In hóa đơn">
+                                    <i class="fas fa-print"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="customer-info">
+                            <div class="customer-detail">
+                                <h4><i class="fas fa-user"></i> Lê Thị Hoa</h4>
+                                <p><i class="fas fa-phone"></i> +84 555 123 456</p>
+                                <p><i class="fas fa-map-marker-alt"></i> 789 Võ Văn Tần, P.6, Q.3, TP.HCM</p>
+                            </div>
+                            <div class="completion-info">
+                                <span class="completion-time">12:30</span>
+                                <span class="rating">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="products">
+                                <h5>Sản phẩm:</h5>
+                                <ul>
+                                    <li>Sofa 2 chỗ ngồi màu xám (1x)</li>
+                                </ul>
+                            </div>
+                            <div class="delivery-info">
+                                <p><strong>Tổng tiền:</strong> 3.400.000 VNĐ</p>
+                                <p><strong>Thanh toán:</strong> COD - Đã thu</p>
+                                <p><strong>Phản hồi:</strong> "Giao hàng nhanh và chuyên nghiệp!"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-footer">
+                        <div class="completion-details">
+                            <div class="photos">
+                                <span><i class="fas fa-camera"></i> 3 ảnh bằng chứng</span>
+                                <span><i class="fas fa-signature"></i> Đã ký nhận</span>
+                            </div>
+                        </div>
+                        <div class="timeline">
+                            <div class="timeline-item completed">
+                                <i class="fas fa-check"></i>
+                                <span>Đã phân công (08:00)</span>
+                            </div>
+                            <div class="timeline-item completed">
+                                <i class="fas fa-box"></i>
+                                <span>Đã lấy hàng (09:15)</span>
+                            </div>
+                            <div class="timeline-item completed">
+                                <i class="fas fa-truck"></i>
+                                <span>Đang giao (11:45)</span>
+                            </div>
+                            <div class="timeline-item completed">
+                                <i class="fas fa-home"></i>
+                                <span>Hoàn thành (12:30)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-truck"></i> FurniStore Delivery</h3>
+                    <p>Dịch vụ giao hàng nhanh chóng và chuyên nghiệp.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Hỗ trợ</h3>
+                    <ul>
+                        <li><a href="#help">Trợ giúp</a></li>
+                        <li><a href="#emergency">Khẩn cấp: 1800-xxx</a></li>
+                        <li><a href="#training">Đào tạo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên hệ khẩn cấp</h3>
+                    <div class="emergency-contacts">
+                        <a href="tel:1800"><i class="fas fa-phone"></i> 1800-xxx</a>
+                        <a href="#support"><i class="fas fa-headset"></i> Hỗ trợ 24/7</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FurniStore Delivery. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Delivery Confirmation Modal -->
+    <div class="modal-overlay" id="deliveryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Xác nhận giao hàng thành công</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="deliveryForm" class="delivery-form">
+                    <div class="form-group">
+                        <label for="customerName">Người nhận</label>
+                        <input type="text" id="customerName" name="customerName" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="deliveryTime">Thời gian giao</label>
+                            <input type="time" id="deliveryTime" name="deliveryTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverName">Người ký nhận</label>
+                            <input type="text" id="receiverName" name="receiverName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="photoUpload">Upload ảnh bằng chứng *</label>
+                        <div class="photo-upload-area" id="photoUploadArea">
+                            <i class="fas fa-camera"></i>
+                            <p>Chụp ảnh hoặc chọn từ thư viện</p>
+                            <input type="file" id="photoUpload" name="photos" multiple accept="image/*" hidden>
+                        </div>
+                        <div class="photo-preview" id="photoPreview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customerFeedback">Phản hồi từ khách hàng</label>
+                        <textarea id="customerFeedback" name="feedback" rows="3" placeholder="Ghi chú phản hồi từ khách hàng (nếu có)..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deliveryNotes">Ghi chú giao hàng</label>
+                        <textarea id="deliveryNotes" name="notes" rows="3" placeholder="Ghi chú thêm về quá trình giao hàng..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelDelivery">
+                            <i class="fas fa-times"></i>
+                            Hủy
+                        </button>
+                        <button type="submit" class="btn-success">
+                            <i class="fas fa-check-circle"></i>
+                            Xác nhận giao thành công
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Issue Report Modal -->
+    <div class="modal-overlay" id="issueModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Báo cáo vấn đề giao hàng</h2>
+                <button class="modal-close" onclick="closeIssueModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="issueForm" class="issue-form">
+                    <div class="form-group">
+                        <label for="issueType">Loại vấn đề *</label>
+                        <select id="issueType" name="issueType" required>
+                            <option value="">Chọn loại vấn đề</option>
+                            <option value="customer_not_home">Khách hàng không có nhà</option>
+                            <option value="wrong_address">Địa chỉ sai</option>
+                            <option value="customer_refused">Khách hàng từ chối nhận</option>
+                            <option value="damaged_product">Sản phẩm bị hỏng</option>
+                            <option value="vehicle_breakdown">Xe hỏng</option>
+                            <option value="traffic_issue">Vấn đề giao thông</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueDescription">Mô tả chi tiết *</label>
+                        <textarea id="issueDescription" name="description" rows="4" required placeholder="Mô tả chi tiết vấn đề gặp phải..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issuePhotos">Upload ảnh minh chứng</label>
+                        <div class="photo-upload-area" onclick="document.getElementById('issuePhotos').click()">
+                            <i class="fas fa-camera"></i>
+                            <p>Chụp ảnh bằng chứng (nếu có)</p>
+                            <input type="file" id="issuePhotos" name="photos" multiple accept="image/*" hidden>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rescheduleDate">Ngày giao lại (nếu có)</label>
+                            <input type="date" id="rescheduleDate" name="rescheduleDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="rescheduleTime">Giờ giao lại</label>
+                            <input type="time" id="rescheduleTime" name="rescheduleTime">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeIssueModal()">
+                            <i class="fas fa-times"></i>
+                            Hủy
+                        </button>
+                        <button type="submit" class="btn-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Gửi báo cáo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/delivery.js"></script>
+</body>
+</html>
