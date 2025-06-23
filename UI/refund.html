@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return & Refund - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/refund.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-couch"></i> FurniStore</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="index.html#products" class="nav-link">Sản phẩm</a></li>
+                    <li><a href="index.html#about" class="nav-link">Về chúng tôi</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Liên hệ</a></li>
+                    <li><a href="refund.html" class="nav-link active">Hoàn trả</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="current">Return & Refund</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="refund-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-undo-alt"></i> Return & Refund</h1>
+                <p>Chính sách hoàn trả và đổi sản phẩm dễ dàng, nhanh chóng</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="quick-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>30 ngày</h3>
+                        <p>Thời gian hoàn trả</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Miễn phí</h3>
+                        <p>Vận chuyển hoàn trả</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>100%</h3>
+                        <p>Hoàn tiền đầy đủ</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24/7</h3>
+                        <p>Hỗ trợ khách hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="refund-main">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Return Request Form -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-file-alt"></i> Return Request - Yêu cầu hoàn trả</h2>
+                        <p>Điền thông tin để tạo yêu cầu hoàn trả sản phẩm</p>
+                    </div>
+                    
+                    <form class="refund-form" id="returnForm">
+                        <div class="form-group">
+                            <label for="orderNumber">Mã đơn hàng *</label>
+                            <input type="text" id="orderNumber" name="orderNumber" placeholder="VD: FN123456789" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerEmail">Email khách hàng *</label>
+                            <input type="email" id="customerEmail" name="customerEmail" placeholder="email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productName">Tên sản phẩm *</label>
+                            <input type="text" id="productName" name="productName" placeholder="VD: Ghế sofa hiện đại" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="returnReason">Lý do hoàn trả *</label>
+                            <select id="returnReason" name="returnReason" required>
+                                <option value="">Chọn lý do</option>
+                                <option value="defective">Sản phẩm bị lỗi</option>
+                                <option value="not-as-described">Không đúng mô tả</option>
+                                <option value="damaged">Bị hư hỏng khi vận chuyển</option>
+                                <option value="wrong-item">Giao sai sản phẩm</option>
+                                <option value="size-issue">Không phù hợp kích thước</option>
+                                <option value="other">Lý do khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="returnDescription">Mô tả chi tiết</label>
+                            <textarea id="returnDescription" name="returnDescription" rows="4" placeholder="Vui lòng mô tả chi tiết vấn đề..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="images">Hình ảnh sản phẩm</label>
+                            <div class="file-upload">
+                                <input type="file" id="images" name="images" multiple accept="image/*">
+                                <label for="images" class="file-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Tải lên hình ảnh (tối đa 5 ảnh)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                <span class="checkmark"></span>
+                                Tôi đồng ý với <a href="#policy" class="terms-link">chính sách hoàn trả</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Gửi yêu cầu hoàn trả
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Refund Processing Status -->
+                <div class="status-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-cogs"></i> Refund Processing - Xử lý hoàn tiền</h2>
+                        <p>Theo dõi trạng thái xử lý hoàn tiền của bạn</p>
+                    </div>
+                    
+                    <div class="status-tracker">
+                        <div class="tracker-form">
+                            <input type="text" id="trackingCode" placeholder="Nhập mã theo dõi hoàn trả">
+                            <button type="button" id="trackBtn" class="track-btn">
+                                <i class="fas fa-search"></i>
+                                Tra cứu
+                            </button>
+                        </div>
+                        
+                        <div class="process-steps">
+                            <div class="step completed">
+                                <div class="step-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Yêu cầu đã gửi</h4>
+                                    <p>Yêu cầu hoàn trả đã được tiếp nhận</p>
+                                    <span class="step-time">2 giờ trước</span>
+                                </div>
+                            </div>
+                            
+                            <div class="step active">
+                                <div class="step-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Đang xem xét</h4>
+                                    <p>Đội ngũ chăm sóc khách hàng đang xem xét</p>
+                                    <span class="step-time">Ước tính: 24 giờ</span>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Đã duyệt</h4>
+                                    <p>Yêu cầu được chấp thuận</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Thu hồi sản phẩm</h4>
+                                    <p>Sản phẩm đang được thu hồi</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Hoàn tiền</h4>
+                                    <p>Tiền đã được hoàn trả</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policy Section -->
+    <section id="policy" class="policy-section">
+        <div class="container">
+            <h2 class="section-title">Chính sách hoàn trả</h2>
+            <div class="policy-grid">
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Thời gian hoàn trả</h3>
+                    <p>Bạn có 30 ngày kể từ ngày nhận hàng để yêu cầu hoàn trả sản phẩm. Sản phẩm phải còn nguyên vẹn và chưa sử dụng.</p>
+                </div>
+                
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3>Điều kiện sản phẩm</h3>
+                    <p>Sản phẩm phải trong tình trạng ban đầu, còn nguyên tem mác, bao bì và không có dấu hiệu sử dụng hoặc hư hỏng.</p>
+                </div>
+                
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Vận chuyển</h3>
+                    <p>Chúng tôi hỗ trợ miễn phí vận chuyển khi thu hồi sản phẩm hoàn trả. Đội ngũ sẽ liên hệ để sắp xếp thời gian phù hợp.</p>
+                </div>
+                
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Hoàn tiền</h3>
+                    <p>Tiền sẽ được hoàn trả về tài khoản gốc trong vòng 5-7 ngày làm việc sau khi chúng tôi nhận và kiểm tra sản phẩm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Câu hỏi thường gặp</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Tôi có thể hoàn trả sản phẩm đã sử dụng không?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chúng tôi chỉ chấp nhận hoàn trả các sản phẩm chưa sử dụng và còn nguyên vẹn. Trường hợp đặc biệt như sản phẩm bị lỗi sẽ được xem xét riêng.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Mất bao lâu để nhận được tiền hoàn trả?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sau khi chúng tôi nhận và kiểm tra sản phẩm, tiền sẽ được hoàn trả trong vòng 5-7 ngày làm việc về phương thức thanh toán ban đầu.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Tôi có thể đổi sản phẩm thay vì hoàn trả không?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Có, chúng tôi hỗ trợ đổi sản phẩm trong cùng danh mục và giá trị tương đương. Vui lòng liên hệ để được tư vấn cụ thể.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-couch"></i> FurniStore</h3>
+                    <p>Nơi cung cấp nội thất chất lượng cao cho ngôi nhà của bạn.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="index.html#products">Sản phẩm</a></li>
+                        <li><a href="index.html#about">Về chúng tôi</a></li>
+                        <li><a href="refund.html">Hoàn trả</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FurniStore. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/refund.js"></script>
+</body>
+</html>
