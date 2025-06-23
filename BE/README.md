@@ -1,7 +1,7 @@
-# Furniture Store API - Authentication & User Management
+# Furniture Store API - Complete Backend System
 
 ## Overview
-Complete backend system for furniture store with authentication, authorization, and comprehensive user management features.
+Complete backend system for furniture store with authentication, user management, product management, category management, and order management.
 
 ## Features Implemented
 
@@ -20,6 +20,30 @@ Complete backend system for furniture store with authentication, authorization, 
 - **Role-based Access Control** - 5 different user roles with specific permissions
 - **Membership System** - Bronze, Silver, Gold, Platinum levels based on spending
 - **User Statistics** - Purchase analytics, engagement scoring, activity reports
+
+### 🛍️ Product Management
+- **Product CRUD** - Complete product management with images
+- **Product Search & Filter** - Advanced search, filtering, sorting
+- **Product Categories** - Hierarchical category system
+- **Stock Management** - Inventory tracking and management
+- **Product Analytics** - Featured products, bestsellers, new arrivals
+- **Image Upload** - Multiple image support per product
+
+### 📂 Category Management
+- **Category CRUD** - Complete category management system
+- **Hierarchical Categories** - Parent-child category relationships
+- **Category Images** - Image support for categories
+- **SEO Optimization** - Meta tags, descriptions, keywords
+- **Category Analytics** - Usage statistics and analytics
+
+### 🛒 Order Management
+- **Order Creation** - Complete order placement system
+- **Order Status Management** - Full order lifecycle tracking
+- **Warehouse Integration** - Order preparation and fulfillment
+- **Delivery Management** - Delivery person assignment and tracking
+- **Payment Processing** - Multiple payment method support
+- **Order Reports** - Comprehensive order analytics and reporting
+- **Order Slip Generation** - Printable order slips for warehouse
 
 ### 🛡️ Security Features
 - **Password Hashing** - bcrypt with salt rounds
@@ -59,6 +83,19 @@ Complete backend system for furniture store with authentication, authorization, 
 - `POST /api/users/staff` - Create staff account (admin only)
 - `PUT /api/users/:id` - Update user (admin only)
 - `DELETE /api/users/:id` - Deactivate user (admin only)
+
+### 🛒 Order Management API
+- `POST /api/orders` - Create new order
+- `GET /api/orders/my-orders` - Get customer's orders
+- `GET /api/orders` - Get all orders (Admin)
+- `GET /api/orders/warehouse` - Get warehouse orders
+- `GET /api/orders/:id` - Get order details
+- `PUT /api/orders/:id/status` - Update order status
+- `PUT /api/orders/:id/assign-delivery` - Assign delivery person
+- `PUT /api/orders/:id/pay` - Mark order as paid
+- `PUT /api/orders/:id/tracking` - Update tracking info
+- `GET /api/orders/:id/slip` - Generate order slip
+- `GET /api/orders/stats` - Order statistics
 
 ## Rate Limits
 - **Registration**: 3 attempts per hour
@@ -125,6 +162,7 @@ npm run dev
 ## Documentation
 - [Authentication API](README.md#authentication-endpoints) - Complete auth system documentation
 - [User Management API](USER_MANAGEMENT_API.md) - Detailed user management documentation
+- [Order Management API](ORDER_MANAGEMENT_API.md) - Complete order management documentation
 
 ## Quick Start Examples
 
@@ -152,4 +190,22 @@ curl -X POST http://localhost:3000/api/users/staff \
   -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name":"Staff Member","email":"staff@company.com","password":"password123","role":"warehouse_manager"}'
+```
+
+### Order Management
+```bash
+# Create new order
+curl -X POST http://localhost:3000/api/orders \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"productId":"product_id","quantity":2}],"deliveryAddress":"123 Main St","paymentMethod":"credit_card"}'
+
+# Get customer's orders
+curl -X GET http://localhost:3000/api/orders/my-orders \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Update order status (admin only)
+curl -X PUT http://localhost:3000/api/orders/order_id/status \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"shipped"}'
 ```
