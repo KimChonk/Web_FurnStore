@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Management - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user-profile.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-couch"></i> FurniStore</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="index.html#products" class="nav-link">Sản phẩm</a></li>
+                    <li><a href="refund.html" class="nav-link">Hoàn trả</a></li>
+                    <li><a href="promotion.html" class="nav-link">Khuyến mãi</a></li>
+                    <li><a href="user-profile.html" class="nav-link active">Hồ sơ</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Nguyễn Văn A</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="staff-management.html"><i class="fas fa-users-cog"></i> Quản lý nhân viên</a>
+                        <a href="customer-history.html"><i class="fas fa-history"></i> Lịch sử khách hàng</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="current">User Profile Management</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="profile-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-user-cog"></i> User Profile Management</h1>
+                <p>Quản lý thông tin cá nhân, tài khoản và cài đặt bảo mật</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="profile-main">
+        <div class="container">
+            <div class="profile-layout">
+                <!-- Sidebar Menu -->
+                <div class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <img src="images/avatar-placeholder.jpg" alt="Avatar" id="avatarImage">
+                            <button class="avatar-edit-btn" id="avatarEditBtn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Nguyễn Văn A</h3>
+                            <p class="profile-role">Nhân viên bán hàng</p>
+                            <p class="profile-id">ID: NV001</p>
+                        </div>
+                    </div>
+                    
+                    <nav class="profile-nav">
+                        <a href="#personal" class="nav-item active" data-tab="personal">
+                            <i class="fas fa-user"></i>
+                            Thông tin cá nhân
+                        </a>
+                        <a href="#account" class="nav-item" data-tab="account">
+                            <i class="fas fa-user-circle"></i>
+                            Tài khoản
+                        </a>
+                        <a href="#security" class="nav-item" data-tab="security">
+                            <i class="fas fa-shield-alt"></i>
+                            Bảo mật
+                        </a>
+                        <a href="#preferences" class="nav-item" data-tab="preferences">
+                            <i class="fas fa-cog"></i>
+                            Tùy chọn
+                        </a>
+                        <a href="#notifications" class="nav-item" data-tab="notifications">
+                            <i class="fas fa-bell"></i>
+                            Thông báo
+                        </a>
+                        <a href="#activity" class="nav-item" data-tab="activity">
+                            <i class="fas fa-history"></i>
+                            Hoạt động
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Content Area -->
+                <div class="profile-content">
+                    <!-- Personal Information Tab -->
+                    <div class="tab-content active" id="personal">
+                        <div class="section-header">
+                            <h2><i class="fas fa-user"></i> Thông tin cá nhân</h2>
+                            <button class="btn-primary" id="editPersonalBtn">
+                                <i class="fas fa-edit"></i>
+                                Chỉnh sửa
+                            </button>
+                        </div>
+                        
+                        <form class="profile-form" id="personalForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="lastName">Họ *</label>
+                                    <input type="text" id="lastName" name="lastName" value="Nguyễn" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstName">Tên *</label>
+                                    <input type="text" id="firstName" name="firstName" value="Văn A" disabled>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" value="nguyenvana@furnistore.com" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Số điện thoại *</label>
+                                    <input type="tel" id="phone" name="phone" value="0901234567" disabled>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="birthDate">Ngày sinh</label>
+                                    <input type="date" id="birthDate" name="birthDate" value="1990-01-15" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Giới tính</label>
+                                    <select id="gender" name="gender" disabled>
+                                        <option value="male" selected>Nam</option>
+                                        <option value="female">Nữ</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Địa chỉ</label>
+                                <input type="text" id="address" name="address" value="123 Đường ABC, Quận 1, TP.HCM" disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bio">Giới thiệu</label>
+                                <textarea id="bio" name="bio" rows="3" disabled placeholder="Viết vài dòng giới thiệu về bản thân...">Nhân viên bán hàng có 3 năm kinh nghiệm trong lĩnh vực nội thất. Chuyên tư vấn và hỗ trợ khách hàng lựa chọn sản phẩm phù hợp.</textarea>
+                            </div>
+                            
+                            <div class="form-actions" style="display: none;" id="personalActions">
+                                <button type="button" class="btn-secondary" id="cancelPersonalBtn">
+                                    <i class="fas fa-times"></i>
+                                    Hủy
+                                </button>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Lưu thay đổi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Account Information Tab -->
+                    <div class="tab-content" id="account">
+                        <div class="section-header">
+                            <h2><i class="fas fa-user-circle"></i> Thông tin tài khoản</h2>
+                        </div>
+                        
+                        <div class="account-info">
+                            <div class="info-card">
+                                <div class="info-header">
+                                    <h3>Thông tin đăng nhập</h3>
+                                    <span class="status-badge active">Hoạt động</span>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-item">
+                                        <label>Username:</label>
+                                        <span>nguyenvana</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Email đăng nhập:</label>
+                                        <span>nguyenvana@furnistore.com</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Tài khoản được tạo:</label>
+                                        <span>15/01/2022</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <label>Lần đăng nhập cuối:</label>
+                                        <span>23/06/2025, 08:30 AM</span>
+                                    </div>
+                                </div>
+                                <div class="info-actions">
+                                    <button class="btn-outline" id="changeUsernameBtn">
+                                        <i class="fas fa-edit"></i>
+                                        Đổi username
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <div class="info-header">
+                                    <h3>Quyền và vai trò</h3>
+                                </div>
+                                <div class="info-content">
+                                    <div class="role-item">
+                                        <div class="role-info">
+                                            <span class="role-name">Nhân viên bán hàng</span>
+                                            <span class="role-desc">Quyền xem sản phẩm, tạo đơn hàng, xử lý hoàn trả</span>
+                                        </div>
+                                        <span class="role-badge">Staff</span>
+                                    </div>
+                                    <div class="permissions-list">
+                                        <h4>Quyền truy cập:</h4>
+                                        <ul>
+                                            <li><i class="fas fa-check text-success"></i> Xem danh sách sản phẩm</li>
+                                            <li><i class="fas fa-check text-success"></i> Tạo và chỉnh sửa đơn hàng</li>
+                                            <li><i class="fas fa-check text-success"></i> Xử lý yêu cầu hoàn trả</li>
+                                            <li><i class="fas fa-check text-success"></i> Xem lịch sử khách hàng</li>
+                                            <li><i class="fas fa-times text-danger"></i> Quản lý nhân viên</li>
+                                            <li><i class="fas fa-times text-danger"></i> Tạo chương trình khuyến mãi</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div class="tab-content" id="security">
+                        <div class="section-header">
+                            <h2><i class="fas fa-shield-alt"></i> Bảo mật</h2>
+                        </div>
+                        
+                        <div class="security-section">
+                            <!-- Password -->
+                            <div class="security-card">
+                                <div class="security-header">
+                                    <h3><i class="fas fa-key"></i> Mật khẩu</h3>
+                                    <button class="btn-primary" id="changePasswordBtn">
+                                        <i class="fas fa-edit"></i>
+                                        Đổi mật khẩu
+                                    </button>
+                                </div>
+                                <div class="security-content">
+                                    <p>Lần thay đổi cuối: 15/05/2025</p>
+                                    <div class="password-strength">
+                                        <span>Độ mạnh mật khẩu:</span>
+                                        <div class="strength-bar">
+                                            <div class="strength-fill strong"></div>
+                                        </div>
+                                        <span class="strength-text strong">Mạnh</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Two-Factor Authentication -->
+                            <div class="security-card">
+                                <div class="security-header">
+                                    <h3><i class="fas fa-mobile-alt"></i> Xác thực 2 bước</h3>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="twoFactorToggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="security-content">
+                                    <p>Thêm một lớp bảo mật bổ sung cho tài khoản của bạn</p>
+                                    <div class="two-factor-status">
+                                        <span class="status-text">Chưa kích hoạt</span>
+                                        <button class="btn-outline" id="setup2FABtn">
+                                            <i class="fas fa-cog"></i>
+                                            Thiết lập
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Login Sessions -->
+                            <div class="security-card">
+                                <div class="security-header">
+                                    <h3><i class="fas fa-desktop"></i> Phiên đăng nhập</h3>
+                                    <button class="btn-secondary" id="logoutAllBtn">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Đăng xuất tất cả
+                                    </button>
+                                </div>
+                                <div class="security-content">
+                                    <div class="session-list">
+                                        <div class="session-item current">
+                                            <div class="session-info">
+                                                <div class="session-device">
+                                                    <i class="fas fa-desktop"></i>
+                                                    <span>Windows PC - Chrome</span>
+                                                    <span class="current-badge">Hiện tại</span>
+                                                </div>
+                                                <div class="session-details">
+                                                    <span>IP: 192.168.1.100</span>
+                                                    <span>Đăng nhập: 23/06/2025, 08:30 AM</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="session-item">
+                                            <div class="session-info">
+                                                <div class="session-device">
+                                                    <i class="fas fa-mobile-alt"></i>
+                                                    <span>iPhone - Safari</span>
+                                                </div>
+                                                <div class="session-details">
+                                                    <span>IP: 192.168.1.105</span>
+                                                    <span>Đăng nhập: 22/06/2025, 06:15 PM</span>
+                                                </div>
+                                            </div>
+                                            <button class="btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                                Đăng xuất
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Tab -->
+                    <div class="tab-content" id="preferences">
+                        <div class="section-header">
+                            <h2><i class="fas fa-cog"></i> Tùy chọn</h2>
+                        </div>
+                        
+                        <form class="preferences-form" id="preferencesForm">
+                            <div class="preference-section">
+                                <h3>Giao diện</h3>
+                                <div class="preference-item">
+                                    <label>Chế độ hiển thị</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="theme" value="light" checked>
+                                            <span class="radio-custom"></span>
+                                            Sáng
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="theme" value="dark">
+                                            <span class="radio-custom"></span>
+                                            Tối
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="theme" value="auto">
+                                            <span class="radio-custom"></span>
+                                            Tự động
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="preference-item">
+                                    <label>Ngôn ngữ</label>
+                                    <select name="language" class="preference-select">
+                                        <option value="vi" selected>Tiếng Việt</option>
+                                        <option value="en">English</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-section">
+                                <h3>Hiển thị dữ liệu</h3>
+                                <div class="preference-item">
+                                    <label>Số mục hiển thị mỗi trang</label>
+                                    <select name="itemsPerPage" class="preference-select">
+                                        <option value="10">10</option>
+                                        <option value="20" selected>20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <div class="preference-item">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="showAdvancedFeatures" checked>
+                                        <span class="checkmark"></span>
+                                        Hiển thị tính năng nâng cao
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-section">
+                                <h3>Bảo mật</h3>
+                                <div class="preference-item">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="autoLogout" checked>
+                                        <span class="checkmark"></span>
+                                        Tự động đăng xuất sau 30 phút không hoạt động
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="loginAlerts">
+                                        <span class="checkmark"></span>
+                                        Gửi thông báo khi có đăng nhập mới
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary">
+                                    <i class="fas fa-undo"></i>
+                                    Khôi phục mặc định
+                                </button>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Lưu tùy chọn
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Notifications Tab -->
+                    <div class="tab-content" id="notifications">
+                        <div class="section-header">
+                            <h2><i class="fas fa-bell"></i> Cài đặt thông báo</h2>
+                        </div>
+                        
+                        <form class="notifications-form" id="notificationsForm">
+                            <div class="notification-section">
+                                <h3>Email thông báo</h3>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <label>Đơn hàng mới</label>
+                                        <p>Nhận thông báo khi có đơn hàng mới</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" name="emailNewOrder" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <label>Yêu cầu hoàn trả</label>
+                                        <p>Nhận thông báo khi có yêu cầu hoàn trả mới</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" name="emailRefund" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <label>Khuyến mãi mới</label>
+                                        <p>Nhận thông báo khi có chương trình khuyến mãi mới</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" name="emailPromotion">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-section">
+                                <h3>Thông báo trên hệ thống</h3>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <label>Cập nhật hệ thống</label>
+                                        <p>Thông báo về các cập nhật và bảo trì hệ thống</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" name="systemUpdates" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <label>Báo cáo hàng tuần</label>
+                                        <p>Nhận báo cáo tổng hợp hoạt động hàng tuần</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" name="weeklyReport" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-section">
+                                <h3>Thông báo di động</h3>
+                                <div class="notification-item">
+                                    <div class="notification-info">
+                                        <label>Push notification</label>
+                                        <p>Nhận thông báo đẩy trên thiết bị di động</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" name="pushNotification">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Lưu cài đặt
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Activity Tab -->
+                    <div class="tab-content" id="activity">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history"></i> Lịch sử hoạt động</h2>
+                            <div class="activity-filters">
+                                <select id="activityFilter" class="filter-select">
+                                    <option value="">Tất cả hoạt động</option>
+                                    <option value="login">Đăng nhập</option>
+                                    <option value="profile">Cập nhật hồ sơ</option>
+                                    <option value="order">Đơn hàng</option>
+                                    <option value="security">Bảo mật</option>
+                                </select>
+                                <select id="activityPeriod" class="filter-select">
+                                    <option value="7">7 ngày qua</option>
+                                    <option value="30" selected>30 ngày qua</option>
+                                    <option value="90">3 tháng qua</option>
+                                    <option value="365">1 năm qua</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-timeline">
+                            <div class="activity-item">
+                                <div class="activity-icon login">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Đăng nhập vào hệ thống</div>
+                                    <div class="activity-details">
+                                        <span>IP: 192.168.1.100</span>
+                                        <span>•</span>
+                                        <span>Chrome trên Windows</span>
+                                    </div>
+                                    <div class="activity-time">Hôm nay, 08:30 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon profile">
+                                    <i class="fas fa-user-edit"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Cập nhật thông tin cá nhân</div>
+                                    <div class="activity-details">
+                                        Thay đổi số điện thoại và địa chỉ
+                                    </div>
+                                    <div class="activity-time">22/06/2025, 03:15 PM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon order">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Tạo đơn hàng #DH2025001234</div>
+                                    <div class="activity-details">
+                                        Đơn hàng trị giá 2.500.000 VNĐ cho khách hàng Trần Thị B
+                                    </div>
+                                    <div class="activity-time">22/06/2025, 02:45 PM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon security">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Thay đổi mật khẩu</div>
+                                    <div class="activity-details">
+                                        Mật khẩu đã được cập nhật thành công
+                                    </div>
+                                    <div class="activity-time">20/06/2025, 10:20 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon login">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Đăng nhập từ thiết bị mới</div>
+                                    <div class="activity-details">
+                                        <span>IP: 192.168.1.105</span>
+                                        <span>•</span>
+                                        <span>Safari trên iPhone</span>
+                                    </div>
+                                    <div class="activity-time">19/06/2025, 06:15 PM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon order">
+                                    <i class="fas fa-undo"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Xử lý yêu cầu hoàn trả #RT2025000567</div>
+                                    <div class="activity-details">
+                                        Phê duyệt hoàn trả cho đơn hàng #DH2025001200
+                                    </div>
+                                    <div class="activity-time">18/06/2025, 11:30 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="load-more">
+                            <button class="btn-outline" id="loadMoreActivity">
+                                <i class="fas fa-chevron-down"></i>
+                                Xem thêm hoạt động
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-couch"></i> FurniStore</h3>
+                    <p>Nơi cung cấp nội thất chất lượng cao cho ngôi nhà của bạn.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="index.html#products">Sản phẩm</a></li>
+                        <li><a href="refund.html">Hoàn trả</a></li>
+                        <li><a href="promotion.html">Khuyến mãi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FurniStore. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Change Password Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Đổi mật khẩu</h2>
+                <button class="modal-close" id="closePasswordModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="passwordForm" class="password-form">
+                    <div class="form-group">
+                        <label for="currentPassword">Mật khẩu hiện tại *</label>
+                        <div class="password-input">
+                            <input type="password" id="currentPassword" name="currentPassword" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newPassword">Mật khẩu mới *</label>
+                        <div class="password-input">
+                            <input type="password" id="newPassword" name="newPassword" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill"></div>
+                            </div>
+                            <span class="strength-text">Nhập mật khẩu</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu mới *</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="password-requirements">
+                        <h4>Yêu cầu mật khẩu:</h4>
+                        <ul>
+                            <li id="length-req"><i class="fas fa-times"></i> Ít nhất 8 ký tự</li>
+                            <li id="uppercase-req"><i class="fas fa-times"></i> Ít nhất 1 chữ hoa</li>
+                            <li id="lowercase-req"><i class="fas fa-times"></i> Ít nhất 1 chữ thường</li>
+                            <li id="number-req"><i class="fas fa-times"></i> Ít nhất 1 số</li>
+                            <li id="special-req"><i class="fas fa-times"></i> Ít nhất 1 ký tự đặc biệt</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelPasswordBtn">
+                            <i class="fas fa-times"></i>
+                            Hủy
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i>
+                            Đổi mật khẩu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/user-profile.js"></script>
+</body>
+</html>

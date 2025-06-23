@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer History - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customer-history.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-couch"></i> FurniStore</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="index.html#products" class="nav-link">Sản phẩm</a></li>
+                    <li><a href="refund.html" class="nav-link">Hoàn trả</a></li>
+                    <li><a href="promotion.html" class="nav-link">Khuyến mãi</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Tài khoản</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="staff-management.html"><i class="fas fa-users-cog"></i> Quản lý nhân viên</a>
+                        <a href="customer-history.html" class="active"><i class="fas fa-history"></i> Lịch sử khách hàng</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <a href="user-profile.html">User Management</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="current">Customer History</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="customer-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-history"></i> Customer Purchase History</h1>
+                <p>Theo dõi và quản lý lịch sử mua hàng của khách hàng</p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number">1,234</span>
+                    <span class="stat-label">Đơn hàng</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number">567</span>
+                    <span class="stat-label">Khách hàng</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number">2.4B</span>
+                    <span class="stat-label">Doanh thu</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Analytics -->
+    <section class="quick-analytics">
+        <div class="container">
+            <div class="analytics-grid">
+                <div class="analytics-card revenue">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Doanh thu tháng</h3>
+                        <span class="trend positive">+12.5%</span>
+                    </div>
+                    <div class="card-value">
+                        <span class="value">450M VNĐ</span>
+                        <span class="sub-value">So với tháng trước</span>
+                    </div>
+                    <div class="card-chart">
+                        <div class="mini-chart">
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 65%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                            <div class="bar" style="height: 75%"></div>
+                            <div class="bar" style="height: 95%"></div>
+                            <div class="bar" style="height: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card orders">
+                    <div class="card-header">
+                        <h3><i class="fas fa-shopping-cart"></i> Đơn hàng mới</h3>
+                        <span class="trend positive">+8.3%</span>
+                    </div>
+                    <div class="card-value">
+                        <span class="value">156</span>
+                        <span class="sub-value">Trong 7 ngày qua</span>
+                    </div>
+                    <div class="card-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                        <span class="progress-text">78% mục tiêu tháng</span>
+                    </div>
+                </div>
+
+                <div class="analytics-card customers">
+                    <div class="card-header">
+                        <h3><i class="fas fa-users"></i> Khách hàng hoạt động</h3>
+                        <span class="trend positive">+5.1%</span>
+                    </div>
+                    <div class="card-value">
+                        <span class="value">342</span>
+                        <span class="sub-value">Mua hàng trong tháng</span>
+                    </div>
+                    <div class="card-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Khách mới:</span>
+                            <span class="metric-value">45</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Khách cũ:</span>
+                            <span class="metric-value">297</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card avg-order">
+                    <div class="card-header">
+                        <h3><i class="fas fa-calculator"></i> Giá trị trung bình</h3>
+                        <span class="trend positive">+15.2%</span>
+                    </div>
+                    <div class="card-value">
+                        <span class="value">2.9M VNĐ</span>
+                        <span class="sub-value">Trên mỗi đơn hàng</span>
+                    </div>
+                    <div class="card-breakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Cao nhất:</span>
+                            <span class="breakdown-value">15.6M</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Thấp nhất:</span>
+                            <span class="breakdown-value">450K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="customer-main">
+        <div class="container">
+            <!-- Search and Filter -->
+            <div class="search-filter-section">
+                <div class="search-panel">
+                    <div class="search-group">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="customerSearch" placeholder="Tìm khách hàng theo tên, email, SĐT...">
+                        </div>
+                        <button class="search-btn" id="advancedSearchBtn">
+                            <i class="fas fa-sliders-h"></i>
+                            Tìm kiếm nâng cao
+                        </button>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="timeFilter" class="filter-select">
+                            <option value="">Tất cả thời gian</option>
+                            <option value="today">Hôm nay</option>
+                            <option value="week">7 ngày qua</option>
+                            <option value="month">Tháng này</option>
+                            <option value="quarter">Quý này</option>
+                            <option value="year">Năm này</option>
+                            <option value="custom">Tùy chọn</option>
+                        </select>
+                        
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="completed">Hoàn thành</option>
+                            <option value="pending">Đang xử lý</option>
+                            <option value="shipped">Đang giao</option>
+                            <option value="cancelled">Đã hủy</option>
+                            <option value="returned">Đã trả hàng</option>
+                        </select>
+                        
+                        <select id="amountFilter" class="filter-select">
+                            <option value="">Tất cả mức giá</option>
+                            <option value="under_1m">Dưới 1M</option>
+                            <option value="1m_5m">1M - 5M</option>
+                            <option value="5m_10m">5M - 10M</option>
+                            <option value="10m_20m">10M - 20M</option>
+                            <option value="over_20m">Trên 20M</option>
+                        </select>
+                        
+                        <button class="filter-btn" id="exportBtn">
+                            <i class="fas fa-download"></i>
+                            Xuất dữ liệu
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer List -->
+            <div class="customer-list-section">
+                <div class="section-header">
+                    <h2>Danh sách khách hàng và lịch sử mua hàng</h2>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="list">
+                            <i class="fas fa-list"></i>
+                            Danh sách
+                        </button>
+                        <button class="view-btn" data-view="grid">
+                            <i class="fas fa-th-large"></i>
+                            Lưới
+                        </button>
+                    </div>
+                </div>
+
+                <div class="customer-container">
+                    <!-- Customer 1 -->
+                    <div class="customer-card" data-customer-id="1">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <img src="https://via.placeholder.com/60x60/dc2626/ffffff?text=NT" alt="Customer Avatar">
+                                <div class="customer-status vip">VIP</div>
+                            </div>
+                            <div class="customer-info">
+                                <h3>Nguyễn Thị Lan</h3>
+                                <p class="customer-contact">
+                                    <span><i class="fas fa-envelope"></i> lan.nguyen@email.com</span>
+                                    <span><i class="fas fa-phone"></i> +84 123 456 789</span>
+                                </p>
+                                <div class="customer-tags">
+                                    <span class="tag vip">VIP Customer</span>
+                                    <span class="tag frequent">Mua thường xuyên</span>
+                                </div>
+                            </div>
+                            <div class="customer-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">24</span>
+                                    <span class="stat-label">Đơn hàng</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">45.2M</span>
+                                    <span class="stat-label">Tổng chi tiêu</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">1.9M</span>
+                                    <span class="stat-label">Trung bình</span>
+                                </div>
+                            </div>
+                            <div class="customer-actions">
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Gửi email">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="action-btn toggle-history" title="Xem lịch sử">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="order-history" style="display: none;">
+                            <div class="history-header">
+                                <h4><i class="fas fa-history"></i> Lịch sử mua hàng</h4>
+                                <span class="total-orders">24 đơn hàng</span>
+                            </div>
+                            
+                            <div class="orders-list">
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <div class="order-id">#ORD-2025-001</div>
+                                        <div class="order-date">15/01/2025</div>
+                                        <div class="order-products">
+                                            <span>Sofa da cao cấp, Bàn coffee gỗ sồi</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-amount">
+                                        <span class="amount">4.250.000 VNĐ</span>
+                                        <span class="status completed">Hoàn thành</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="order-action-btn" title="Xem chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button class="order-action-btn" title="In hóa đơn">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <div class="order-id">#ORD-2024-156</div>
+                                        <div class="order-date">28/12/2024</div>
+                                        <div class="order-products">
+                                            <span>Tủ quần áo 4 cánh, Giường ngủ king size</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-amount">
+                                        <span class="amount">8.750.000 VNĐ</span>
+                                        <span class="status completed">Hoàn thành</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="order-action-btn" title="Xem chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button class="order-action-btn" title="In hóa đơn">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <div class="order-id">#ORD-2024-134</div>
+                                        <div class="order-date">10/12/2024</div>
+                                        <div class="order-products">
+                                            <span>Bộ bàn ăn 6 ghế, Tủ bếp modular</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-amount">
+                                        <span class="amount">12.500.000 VNĐ</span>
+                                        <span class="status completed">Hoàn thành</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="order-action-btn" title="Xem chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button class="order-action-btn" title="In hóa đơn">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="history-footer">
+                                <button class="load-more-btn">
+                                    <i class="fas fa-plus"></i>
+                                    Xem thêm đơn hàng (21 đơn còn lại)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer 2 -->
+                    <div class="customer-card" data-customer-id="2">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <img src="https://via.placeholder.com/60x60/059669/ffffff?text=TV" alt="Customer Avatar">
+                                <div class="customer-status regular">Regular</div>
+                            </div>
+                            <div class="customer-info">
+                                <h3>Trần Văn Minh</h3>
+                                <p class="customer-contact">
+                                    <span><i class="fas fa-envelope"></i> minh.tran@email.com</span>
+                                    <span><i class="fas fa-phone"></i> +84 987 654 321</span>
+                                </p>
+                                <div class="customer-tags">
+                                    <span class="tag regular">Khách hàng thường</span>
+                                    <span class="tag online">Mua online</span>
+                                </div>
+                            </div>
+                            <div class="customer-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">8</span>
+                                    <span class="stat-label">Đơn hàng</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">18.6M</span>
+                                    <span class="stat-label">Tổng chi tiêu</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">2.3M</span>
+                                    <span class="stat-label">Trung bình</span>
+                                </div>
+                            </div>
+                            <div class="customer-actions">
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Gửi email">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="action-btn toggle-history" title="Xem lịch sử">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="order-history" style="display: none;">
+                            <div class="history-header">
+                                <h4><i class="fas fa-history"></i> Lịch sử mua hàng</h4>
+                                <span class="total-orders">8 đơn hàng</span>
+                            </div>
+                            
+                            <div class="orders-list">
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <div class="order-id">#ORD-2025-002</div>
+                                        <div class="order-date">18/01/2025</div>
+                                        <div class="order-products">
+                                            <span>Bàn làm việc gỗ công nghiệp</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-amount">
+                                        <span class="amount">1.850.000 VNĐ</span>
+                                        <span class="status pending">Đang xử lý</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="order-action-btn" title="Xem chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button class="order-action-btn" title="Cập nhật">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <div class="order-id">#ORD-2024-187</div>
+                                        <div class="order-date">05/01/2025</div>
+                                        <div class="order-products">
+                                            <span>Ghế văn phòng ergonomic, Đèn bàn LED</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-amount">
+                                        <span class="amount">2.200.000 VNĐ</span>
+                                        <span class="status completed">Hoàn thành</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="order-action-btn" title="Xem chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button class="order-action-btn" title="In hóa đơn">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="history-footer">
+                                <button class="load-more-btn">
+                                    <i class="fas fa-plus"></i>
+                                    Xem thêm đơn hàng (6 đơn còn lại)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer 3 -->
+                    <div class="customer-card" data-customer-id="3">
+                        <div class="customer-header">
+                            <div class="customer-avatar">
+                                <img src="https://via.placeholder.com/60x60/2563eb/ffffff?text=LH" alt="Customer Avatar">
+                                <div class="customer-status new">New</div>
+                            </div>
+                            <div class="customer-info">
+                                <h3>Lê Thị Hoa</h3>
+                                <p class="customer-contact">
+                                    <span><i class="fas fa-envelope"></i> hoa.le@email.com</span>
+                                    <span><i class="fas fa-phone"></i> +84 555 123 456</span>
+                                </p>
+                                <div class="customer-tags">
+                                    <span class="tag new">Khách hàng mới</span>
+                                    <span class="tag first-purchase">Lần đầu mua</span>
+                                </div>
+                            </div>
+                            <div class="customer-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">1</span>
+                                    <span class="stat-label">Đơn hàng</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">3.4M</span>
+                                    <span class="stat-label">Tổng chi tiêu</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">3.4M</span>
+                                    <span class="stat-label">Trung bình</span>
+                                </div>
+                            </div>
+                            <div class="customer-actions">
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Gửi email">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="action-btn toggle-history" title="Xem lịch sử">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="order-history" style="display: none;">
+                            <div class="history-header">
+                                <h4><i class="fas fa-history"></i> Lịch sử mua hàng</h4>
+                                <span class="total-orders">1 đơn hàng</span>
+                            </div>
+                            
+                            <div class="orders-list">
+                                <div class="order-item">
+                                    <div class="order-info">
+                                        <div class="order-id">#ORD-2025-003</div>
+                                        <div class="order-date">20/01/2025</div>
+                                        <div class="order-products">
+                                            <span>Sofa 3 chỗ ngồi, Bàn coffee kính cường lực</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-amount">
+                                        <span class="amount">3.400.000 VNĐ</span>
+                                        <span class="status shipped">Đang giao</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="order-action-btn" title="Theo dõi">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                        <button class="order-action-btn" title="Liên hệ">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <span class="page-dots">...</span>
+                    <button class="page-btn">15</button>
+                    <button class="page-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-couch"></i> FurniStore</h3>
+                    <p>Nơi cung cấp nội thất chất lượng cao cho ngôi nhà của bạn.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="index.html#products">Sản phẩm</a></li>
+                        <li><a href="refund.html">Hoàn trả</a></li>
+                        <li><a href="promotion.html">Khuyến mãi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FurniStore. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/customer-history.js"></script>
+</body>
+</html>
