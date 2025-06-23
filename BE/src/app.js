@@ -18,6 +18,8 @@ const deliveryRoutes = require('./routes/delivery');
 const communicationRoutes = require('./routes/communication');
 const inventoryRoutes = require('./routes/inventory');
 const promotionRoutes = require('./routes/promotions');
+const storeRoutes = require('./routes/stores');
+const supportRoutes = require('./routes/support');
 
 // Import middlewares
 const errorHandler = require('./middlewares/errorHandler');
@@ -49,6 +51,8 @@ app.use('/api/delivery', deliveryRoutes);
 app.use('/api/communication', communicationRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/promotions', promotionRoutes);
+app.use('/api/stores', storeRoutes);
+app.use('/api/support', supportRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {

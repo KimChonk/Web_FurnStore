@@ -85,6 +85,28 @@ Complete backend system for furniture store with authentication, user management
 - **Communication History** - View communication history for an order
 - **SMS Templates** - Predefined SMS templates for common notifications
 
+### 🏪 Store Management
+- **Store CRUD** - Complete store location management system
+- **Multi-store Support** - Manage multiple store locations with individual profiles
+- **Staff Assignment** - Assign and manage staff across different store locations
+- **Store Performance Tracking** - Revenue, customer satisfaction, and efficiency metrics
+- **Geographic Search** - Find nearby stores based on location coordinates
+- **Operating Hours Management** - Flexible scheduling for each store location
+- **Inventory Integration** - Store-specific inventory tracking and management
+- **Revenue Analytics** - Detailed financial performance per store location
+
+### 🎧 Customer Support System
+- **Support Ticketing** - Complete customer support ticket management system
+- **Multi-channel Support** - Email, phone, chat, and in-person support channels
+- **Ticket Lifecycle Management** - From creation to resolution with status tracking
+- **Auto-assignment Logic** - Smart ticket assignment based on category and workload
+- **Escalation Management** - Multi-level escalation with SLA tracking
+- **Customer Feedback** - Post-resolution feedback and rating system
+- **SLA Compliance** - Service level agreement tracking and reporting
+- **Support Analytics** - Performance metrics, response times, and satisfaction scores
+- **Internal Communication** - Staff-only notes and communication threads
+- **Emergency Ticket Handling** - Priority routing for urgent customer issues
+
 ### 🛡️ Security Features
 - **Password Hashing** - bcrypt with salt rounds
 - **Account Lockout** - Lock accounts after failed attempts
@@ -250,6 +272,8 @@ npm run dev
 - [Communication Features API](COMMUNICATION_FEATURES_API.md) - Customer communication and contact management
 - [Inventory Management API](INVENTORY_MANAGEMENT_API.md) - Complete warehouse and stock management documentation
 - [Promotion Management API](PROMOTION_MANAGEMENT_API.md) - Comprehensive promotion and discount management
+- [Store Management API](STORE_MANAGEMENT_API.md) - Multi-store location and staff management
+- [Customer Support API](CUSTOMER_SUPPORT_API.md) - Support ticketing and customer service system
 
 ## Quick Start Examples
 
@@ -446,4 +470,139 @@ curl -X POST http://localhost:3000/api/promotions/promotion_id/view \
 # Get promotion analytics
 curl -X GET http://localhost:3000/api/promotions/analytics \
   -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+```
+
+### Store Management
+```bash
+# Get all stores
+curl -X GET http://localhost:3000/api/stores
+
+# Get stores with filters
+curl -X GET "http://localhost:3000/api/stores?status=active&city=New%20York"
+
+# Find nearby stores
+curl -X GET "http://localhost:3000/api/stores/nearby?latitude=40.7128&longitude=-74.0060&radius=10"
+
+# Get specific store
+curl -X GET http://localhost:3000/api/stores/store_id
+
+# Create new store
+curl -X POST http://localhost:3000/api/stores \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Downtown Store","address":{"street":"123 Main St","city":"New York","country":"USA"},"phoneNumber":"+1-555-0123","email":"downtown@furnstore.com","manager":"manager_user_id"}'
+
+# Update store
+curl -X PUT http://localhost:3000/api/stores/store_id \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Updated Store Name"}'
+
+# Get store revenue
+curl -X GET "http://localhost:3000/api/stores/store_id/revenue?period=monthly" \
+  -H "Authorization: Bearer MANAGER_JWT_TOKEN"
+
+# Get store staff
+curl -X GET http://localhost:3000/api/stores/store_id/staff \
+  -H "Authorization: Bearer MANAGER_JWT_TOKEN"
+
+# Manage store staff
+curl -X POST http://localhost:3000/api/stores/store_id/staff \
+  -H "Authorization: Bearer MANAGER_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"staffId":"user_id","action":"add","role":"sales_associate"}'
+
+# Get store inventory
+curl -X GET http://localhost:3000/api/stores/store_id/inventory \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN"
+
+# Get store performance
+curl -X GET http://localhost:3000/api/stores/store_id/performance \
+  -H "Authorization: Bearer MANAGER_JWT_TOKEN"
+
+# Get store statistics
+curl -X GET http://localhost:3000/api/stores/statistics \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Update store status
+curl -X PATCH http://localhost:3000/api/stores/store_id/status \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"maintenance","reason":"Equipment upgrade"}'
+
+# Delete store
+curl -X DELETE http://localhost:3000/api/stores/store_id \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+```
+
+### Customer Support
+```bash
+# Get all support tickets
+curl -X GET http://localhost:3000/api/support/tickets \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN"
+
+# Get tickets with filters
+curl -X GET "http://localhost:3000/api/support/tickets?status=open&category=technical&priority=high" \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN"
+
+# Get specific ticket
+curl -X GET http://localhost:3000/api/support/tickets/ticket_id \
+  -H "Authorization: Bearer CUSTOMER_JWT_TOKEN"
+
+# Create support ticket (authenticated)
+curl -X POST http://localhost:3000/api/support/tickets \
+  -H "Authorization: Bearer CUSTOMER_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"subject":"Product delivery issue","description":"My order hasnt arrived yet","category":"delivery","priority":"medium"}'
+
+# Create support ticket (guest)
+curl -X POST http://localhost:3000/api/support/tickets \
+  -H "Content-Type: application/json" \
+  -d '{"subject":"Product inquiry","description":"Question about warranty","category":"product","customerInfo":{"name":"John Doe","email":"john@email.com","phone":"+1-555-0123"}}'
+
+# Update ticket
+curl -X PUT http://localhost:3000/api/support/tickets/ticket_id \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"in_progress","priority":"high"}'
+
+# Add response to ticket
+curl -X POST http://localhost:3000/api/support/tickets/ticket_id/responses \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Thank you for contacting us. Im looking into your issue now.","isInternal":false}'
+
+# Escalate ticket
+curl -X POST http://localhost:3000/api/support/tickets/ticket_id/escalate \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"escalateTo":"senior_agent_id","reason":"Customer requesting manager involvement","level":2}'
+
+# Submit customer feedback
+curl -X POST http://localhost:3000/api/support/tickets/ticket_id/feedback \
+  -H "Authorization: Bearer CUSTOMER_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"rating":5,"feedback":"Excellent service! Very helpful agent."}'
+
+# Update ticket status only
+curl -X PATCH http://localhost:3000/api/support/tickets/ticket_id/status \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"resolved"}'
+
+# Assign ticket to agent
+curl -X PATCH http://localhost:3000/api/support/tickets/ticket_id/assign \
+  -H "Authorization: Bearer MANAGER_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"assignedTo":"agent_user_id"}'
+
+# Update ticket priority
+curl -X PATCH http://localhost:3000/api/support/tickets/ticket_id/priority \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"priority":"urgent"}'
+
+# Get support analytics
+curl -X GET "http://localhost:3000/api/support/analytics?period=30" \
+  -H "Authorization: Bearer MANAGER_JWT_TOKEN"
 ```

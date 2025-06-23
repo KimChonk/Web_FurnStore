@@ -72,4 +72,51 @@ const staffAuth = (req, res, next) => {
   }
 };
 
-module.exports = { auth, adminAuth, warehouseAuth, deliveryAuth, staffAuth };
+// Optional authentication - doesn't fail if no token provided
+const optionalAuth = async (req, res, next) => {
+  try {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+
+    if (token) {
+      const decoded = verifyToken(token);
+      req.user = decoded;
+    }
+    // Continue regardless of whether token exists or is valid
+    next();
+  } catch (error) {
+    // Even if token is invalid, continue without user
+    next();
+  }
+};
+
+// Generic authorization middleware that accepts multiple roles
+const authorize = (roles) => {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: `Access denied. Required roles: ${roles.join(', ')}`
+      });
+    }
+
+    next();
+  };
+};
+
+module.exports = { 
+  auth, 
+  authenticate: auth, // Alias for consistency
+  optionalAuth,
+  authorize,
+  adminAuth, 
+  warehouseAuth, 
+  deliveryAuth, 
+  staffAuth 
+};
