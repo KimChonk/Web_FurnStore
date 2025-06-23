@@ -45,6 +45,16 @@ Complete backend system for furniture store with authentication, user management
 - **Order Reports** - Comprehensive order analytics and reporting
 - **Order Slip Generation** - Printable order slips for warehouse
 
+### 🚚 Delivery Management
+- **Delivery Assignment** - Smart delivery person assignment system
+- **Real-time Status Updates** - Live delivery status tracking
+- **Delivery Confirmation** - Digital proof of delivery with photos
+- **Failure Reporting** - Comprehensive delivery failure handling
+- **Emergency Incidents** - Emergency situation reporting and management
+- **Delivery History** - Complete delivery performance tracking
+- **Photo Evidence** - Upload delivery proof photos with categorization
+- **Bulk Operations** - Efficient bulk delivery assignment for admins
+
 ### 🛡️ Security Features
 - **Password Hashing** - bcrypt with salt rounds
 - **Account Lockout** - Lock accounts after failed attempts
@@ -96,6 +106,17 @@ Complete backend system for furniture store with authentication, user management
 - `PUT /api/orders/:id/tracking` - Update tracking info
 - `GET /api/orders/:id/slip` - Generate order slip
 - `GET /api/orders/stats` - Order statistics
+
+### 🚚 Delivery Management API
+- `GET /api/delivery/assignments` - Get delivery assignments
+- `GET /api/delivery/available` - Get available orders for assignment (Admin)
+- `GET /api/delivery/history` - Get delivery history
+- `PUT /api/delivery/:orderId/status` - Update delivery status
+- `POST /api/delivery/:orderId/confirm` - Confirm successful delivery
+- `POST /api/delivery/:orderId/failure` - Report delivery failure
+- `POST /api/delivery/:orderId/photos` - Upload delivery proof photos
+- `POST /api/delivery/incident` - Report emergency incident
+- `POST /api/delivery/bulk-assign` - Bulk assign orders (Admin)
 
 ## Rate Limits
 - **Registration**: 3 attempts per hour
@@ -163,6 +184,7 @@ npm run dev
 - [Authentication API](README.md#authentication-endpoints) - Complete auth system documentation
 - [User Management API](USER_MANAGEMENT_API.md) - Detailed user management documentation
 - [Order Management API](ORDER_MANAGEMENT_API.md) - Complete order management documentation
+- [Delivery Management API](DELIVERY_MANAGEMENT_API.md) - Complete delivery management documentation
 
 ## Quick Start Examples
 
@@ -208,4 +230,31 @@ curl -X PUT http://localhost:3000/api/orders/order_id/status \
   -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"status":"shipped"}'
+```
+
+### Delivery Management
+```bash
+# Get delivery assignments
+curl -X GET http://localhost:3000/api/delivery/assignments \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Get available orders for assignment (admin only)
+curl -X GET http://localhost:3000/api/delivery/available \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Update delivery status
+curl -X PUT http://localhost:3000/api/delivery/order_id/status \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"in_progress"}'
+
+# Confirm successful delivery
+curl -X POST http://localhost:3000/api/delivery/order_id/confirm \
+  -H "Authorization: Bearer DELIVERY_JWT_TOKEN"
+
+# Report delivery failure
+curl -X POST http://localhost:3000/api/delivery/order_id/failure \
+  -H "Authorization: Bearer DELIVERY_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"reason":"customer_not_available"}'
 ```

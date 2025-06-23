@@ -7,8 +7,9 @@ const uploadsDir = path.join(__dirname, '../../uploads');
 const productsDir = path.join(uploadsDir, 'products');
 const categoriesDir = path.join(uploadsDir, 'categories');
 const usersDir = path.join(uploadsDir, 'users');
+const deliveryDir = path.join(uploadsDir, 'delivery');
 
-[uploadsDir, productsDir, categoriesDir, usersDir].forEach(dir => {
+[uploadsDir, productsDir, categoriesDir, usersDir, deliveryDir].forEach(dir => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
@@ -26,6 +27,8 @@ const storage = multer.diskStorage({
       uploadPath = categoriesDir;
     } else if (req.baseUrl.includes('/users')) {
       uploadPath = usersDir;
+    } else if (req.baseUrl.includes('/delivery')) {
+      uploadPath = deliveryDir;
     }
     
     cb(null, uploadPath);
@@ -208,11 +211,15 @@ const deleteFileByUrl = (fileUrl, baseUrl) => {
   }
 };
 
+// Specific upload configurations for different purposes
+const uploadDeliveryPhotos = upload.array('photos', 10); // Max 10 delivery photos
+
 module.exports = {
   upload,
   uploadSingle,
   uploadMultiple,
   uploadFields,
+  uploadDeliveryPhotos,
   deleteFile,
   deleteFileByUrl
 };

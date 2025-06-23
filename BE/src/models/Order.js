@@ -115,7 +115,20 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'],
+    enum: [
+      'pending', 
+      'confirmed', 
+      'processing', 
+      'shipped', 
+      'out_for_delivery',
+      'delivery_attempted',
+      'delivered', 
+      'delivery_failed',
+      'delivery_refused',
+      'address_verification_needed',
+      'emergency_hold',
+      'cancelled'
+    ],
     default: 'pending'
   },
   notes: {
@@ -129,7 +142,50 @@ const orderSchema = new mongoose.Schema({
     trackingNumber: String,
     carrier: String,
     trackingUrl: String
-  }
+  },
+  // Delivery Management Fields
+  deliveryAttempts: [{
+    attemptDate: { type: Date, required: true },
+    status: { type: String, required: true },
+    notes: String,
+    deliveryPerson: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    failureReason: String,
+    estimatedRetry: Date
+  }],
+  deliveryConfirmation: {
+    confirmedAt: Date,
+    confirmedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    receiverName: String,
+    receiverPhone: String,
+    deliveryNotes: String,
+    signatureRequired: { type: Boolean, default: false },
+    proofPhotos: [String]
+  },
+  deliveryFailures: [{
+    reportedAt: { type: Date, required: true },
+    reportedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    failureReason: { type: String, required: true },
+    failureDetails: { type: String, required: true },
+    customerNotAvailable: { type: Boolean, default: false },
+    incorrectAddress: { type: Boolean, default: false },
+    refusedDelivery: { type: Boolean, default: false },
+    estimatedRetry: Date,
+    requiresAction: { type: Boolean, default: false }
+  }],
+  deliveryPhotos: [{
+    filename: { type: String, required: true },
+    originalName: String,
+    path: { type: String, required: true },
+    size: Number,
+    uploadedAt: { type: Date, default: Date.now },
+    uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    photoType: { 
+      type: String, 
+      enum: ['delivery_proof', 'package_condition', 'address_verification', 'incident_evidence'],
+      default: 'delivery_proof'
+    },
+    description: String
+  }]
 }, {
   timestamps: true
 });
