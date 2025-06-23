@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý danh mục - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-couch"></i>
+                <span>FurniStore</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="refund.html" class="nav-link">
+                        <i class="fas fa-undo"></i>
+                        Hoàn trả
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="promotion.html" class="nav-link">
+                        <i class="fas fa-tag"></i>
+                        Khuyến mãi
+                    </a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-boxes"></i>
+                        Sản phẩm
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="category.html" class="active"><i class="fas fa-list"></i> Danh mục</a></li>
+                        <li><a href="products.html"><i class="fas fa-box"></i> Sản phẩm</a></li>
+                        <li><a href="inventory.html"><i class="fas fa-warehouse"></i> Kho hàng</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="customer-history.html" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        Lịch sử KH
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="staff-management.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Nhân viên
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-truck"></i>
+                        Giao hàng
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="delivery.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="delivery-history.html"><i class="fas fa-history"></i> Lịch sử</a></li>
+                        <li><a href="emergency-report.html"><i class="fas fa-exclamation-triangle"></i> Báo cáo khẩn cấp</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="nav-user">
+                <div class="user-dropdown">
+                    <div class="user-info">
+                        <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">Admin User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="user-menu">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="#"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h1><i class="fas fa-list"></i> Quản lý danh mục sản phẩm</h1>
+                    <p>Tạo và quản lý các danh mục sản phẩm nội thất</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="exportCategories()">
+                        <i class="fas fa-download"></i>
+                        Xuất dữ liệu
+                    </button>
+                    <button class="btn btn-primary" onclick="openCategoryModal()">
+                        <i class="fas fa-plus"></i>
+                        Thêm danh mục
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalCategories">0</h3>
+                        <p>Tổng danh mục</p>
+                        <span class="stat-change positive">+2 so với tháng trước</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="activeCategories">0</h3>
+                        <p>Đang hiển thị</p>
+                        <span class="stat-change positive">+1 trong tuần</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye-slash"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="inactiveCategories">0</h3>
+                        <p>Đã ẩn</p>
+                        <span class="stat-change neutral">Không thay đổi</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card info">
+                    <div class="stat-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalProducts">0</h3>
+                        <p>Tổng sản phẩm</p>
+                        <span class="stat-change positive">+15 trong tháng</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Tree View -->
+            <div class="category-tree-section">
+                <div class="section-header">
+                    <h2>Cây danh mục</h2>
+                    <div class="tree-actions">
+                        <button class="btn btn-outline btn-sm" onclick="expandAllCategories()">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            Mở rộng tất cả
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="collapseAllCategories()">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                            Thu gọn tất cả
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="category-tree" id="categoryTree">
+                    <!-- Category tree will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="category-controls">
+                <div class="controls-left">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="categorySearch" placeholder="Tìm kiếm danh mục...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="statusFilter">Trạng thái:</label>
+                        <select id="statusFilter" class="form-select">
+                            <option value="all">Tất cả</option>
+                            <option value="active">Đang hiển thị</option>
+                            <option value="inactive">Đã ẩn</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="parentFilter">Danh mục cha:</label>
+                        <select id="parentFilter" class="form-select">
+                            <option value="all">Tất cả</option>
+                            <option value="root">Danh mục gốc</option>
+                            <option value="child">Danh mục con</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="controls-right">
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="card">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="toggle-btn" data-view="table">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button class="toggle-btn" data-view="tree">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="sort-group">
+                        <label for="sortBy">Sắp xếp:</label>
+                        <select id="sortBy" class="form-select">
+                            <option value="name">Tên A-Z</option>
+                            <option value="name_desc">Tên Z-A</option>
+                            <option value="created">Mới nhất</option>
+                            <option value="created_desc">Cũ nhất</option>
+                            <option value="products">Nhiều sản phẩm nhất</option>
+                            <option value="order">Thứ tự hiển thị</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category List -->
+            <div class="category-section">
+                <div class="section-header">
+                    <h2>Danh sách danh mục</h2>
+                    <div class="bulk-actions">
+                        <input type="checkbox" id="selectAll" class="bulk-checkbox">
+                        <label for="selectAll">Chọn tất cả</label>
+                        <div class="bulk-buttons" style="display: none;">
+                            <button class="btn btn-outline btn-sm" onclick="bulkActivate()">
+                                <i class="fas fa-eye"></i>
+                                Hiển thị
+                            </button>
+                            <button class="btn btn-outline btn-sm" onclick="bulkDeactivate()">
+                                <i class="fas fa-eye-slash"></i>
+                                Ẩn
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="bulkDelete()">
+                                <i class="fas fa-trash"></i>
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card View -->
+                <div id="cardView" class="category-grid">
+                    <!-- Category cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Table View -->
+                <div id="tableView" class="category-table" style="display: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="bulk-checkbox" onclick="toggleSelectAll()">
+                                </th>
+                                <th>Hình ảnh</th>
+                                <th>Tên danh mục</th>
+                                <th>Danh mục cha</th>
+                                <th>Số sản phẩm</th>
+                                <th>Thứ tự</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoryTableBody">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tree View -->
+                <div id="treeView" class="category-tree-view" style="display: none;">
+                    <div id="categoryTreeDetailed">
+                        <!-- Detailed tree view will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn" id="prevPage" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="page-numbers" id="pageNumbers">
+                        <!-- Page numbers will be populated by JavaScript -->
+                    </div>
+                    <button class="page-btn" id="nextPage">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="modalTitle">Thêm danh mục mới</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm" class="category-form">
+                    <div class="form-grid">
+                        <div class="form-section">
+                            <h4>Thông tin cơ bản</h4>
+                            
+                            <div class="form-group">
+                                <label for="categoryName">Tên danh mục *</label>
+                                <input type="text" id="categoryName" class="form-input" required>
+                                <small class="form-help">Tên hiển thị của danh mục</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categorySlug">Slug URL</label>
+                                <input type="text" id="categorySlug" class="form-input">
+                                <small class="form-help">URL thân thiện (tự động tạo từ tên)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="parentCategory">Danh mục cha</label>
+                                <select id="parentCategory" class="form-select">
+                                    <option value="">-- Danh mục gốc --</option>
+                                </select>
+                                <small class="form-help">Để trống nếu là danh mục gốc</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categoryDescription">Mô tả</label>
+                                <textarea id="categoryDescription" class="form-textarea" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>Hình ảnh và hiển thị</h4>
+                            
+                            <div class="form-group">
+                                <label for="categoryImage">Hình ảnh danh mục</label>
+                                <div class="image-upload-area" onclick="document.getElementById('categoryImage').click()">
+                                    <div class="upload-placeholder" id="imagePreview">
+                                        <i class="fas fa-image"></i>
+                                        <p>Click để chọn hình ảnh</p>
+                                        <small>Khuyến nghị: 300x200px, định dạng JPG/PNG</small>
+                                    </div>
+                                    <input type="file" id="categoryImage" accept="image/*" hidden>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categoryIcon">Icon danh mục</label>
+                                <div class="icon-selector">
+                                    <input type="text" id="categoryIcon" class="form-input" placeholder="fas fa-couch">
+                                    <div class="icon-preview" id="iconPreview">
+                                        <i class="fas fa-couch"></i>
+                                    </div>
+                                </div>
+                                <div class="icon-suggestions">
+                                    <button type="button" class="icon-btn" data-icon="fas fa-couch">
+                                        <i class="fas fa-couch"></i>
+                                    </button>
+                                    <button type="button" class="icon-btn" data-icon="fas fa-bed">
+                                        <i class="fas fa-bed"></i>
+                                    </button>
+                                    <button type="button" class="icon-btn" data-icon="fas fa-chair">
+                                        <i class="fas fa-chair"></i>
+                                    </button>
+                                    <button type="button" class="icon-btn" data-icon="fas fa-table">
+                                        <i class="fas fa-table"></i>
+                                    </button>
+                                    <button type="button" class="icon-btn" data-icon="fas fa-lamp">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </button>
+                                    <button type="button" class="icon-btn" data-icon="fas fa-mirror">
+                                        <i class="fas fa-mirror"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categoryColor">Màu chủ đề</label>
+                                <div class="color-picker">
+                                    <input type="color" id="categoryColor" value="#dc2626">
+                                    <div class="color-presets">
+                                        <button type="button" class="color-preset" data-color="#dc2626" style="background: #dc2626"></button>
+                                        <button type="button" class="color-preset" data-color="#2563eb" style="background: #2563eb"></button>
+                                        <button type="button" class="color-preset" data-color="#10b981" style="background: #10b981"></button>
+                                        <button type="button" class="color-preset" data-color="#f59e0b" style="background: #f59e0b"></button>
+                                        <button type="button" class="color-preset" data-color="#8b5cf6" style="background: #8b5cf6"></button>
+                                        <button type="button" class="color-preset" data-color="#ef4444" style="background: #ef4444"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>Cài đặt</h4>
+                            
+                            <div class="form-group">
+                                <label for="sortOrder">Thứ tự hiển thị</label>
+                                <input type="number" id="sortOrder" class="form-input" value="0" min="0">
+                                <small class="form-help">Số nhỏ hơn sẽ hiển thị trước</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="isActive" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">Hiển thị danh mục</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="showInMenu">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">Hiển thị trong menu chính</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="isFeatured">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-label">Danh mục nổi bật</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>SEO</h4>
+                            
+                            <div class="form-group">
+                                <label for="metaTitle">Meta Title</label>
+                                <input type="text" id="metaTitle" class="form-input" maxlength="60">
+                                <small class="form-help">0/60 ký tự</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="metaDescription">Meta Description</label>
+                                <textarea id="metaDescription" class="form-textarea" rows="3" maxlength="160"></textarea>
+                                <small class="form-help">0/160 ký tự</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="metaKeywords">Keywords</label>
+                                <input type="text" id="metaKeywords" class="form-input">
+                                <small class="form-help">Phân cách bằng dấu phẩy</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal">
+                            Hủy
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="saveDraft()">
+                            <i class="fas fa-save"></i>
+                            Lưu nháp
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Lưu danh mục
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Xác nhận xóa danh mục</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Bạn có chắc chắn muốn xóa danh mục <strong id="deleteCategoryName"></strong>?</p>
+                    <div class="warning-details">
+                        <p>⚠️ Hành động này sẽ:</p>
+                        <ul>
+                            <li>Xóa vĩnh viễn danh mục này</li>
+                            <li>Chuyển các sản phẩm về danh mục "Khác"</li>
+                            <li>Xóa tất cả danh mục con (nếu có)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="deleteConfirmText">Nhập "XÓA" để xác nhận:</label>
+                    <input type="text" id="deleteConfirmText" class="form-input" placeholder="XÓA">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Hủy</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn" disabled onclick="confirmDelete()">
+                    <i class="fas fa-trash"></i>
+                    Xóa danh mục
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Edit Modal -->
+    <div id="quickEditModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chỉnh sửa nhanh</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="quickEditForm">
+                    <div class="form-group">
+                        <label for="quickEditName">Tên danh mục</label>
+                        <input type="text" id="quickEditName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quickEditStatus">Trạng thái</label>
+                        <select id="quickEditStatus" class="form-select">
+                            <option value="active">Hiển thị</option>
+                            <option value="inactive">Ẩn</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quickEditOrder">Thứ tự</label>
+                        <input type="number" id="quickEditOrder" class="form-input" min="0">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Hủy</button>
+                <button class="btn btn-primary" onclick="saveQuickEdit()">
+                    <i class="fas fa-save"></i>
+                    Lưu thay đổi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/category.js"></script>
+</body>
+</html>
