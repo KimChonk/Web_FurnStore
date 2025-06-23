@@ -467,6 +467,31 @@ if (!document.querySelector('#active-nav-styles')) {
     document.head.appendChild(styleElement);
 }
 
+// User dropdown functionality
+const userMenuBtn = document.getElementById('userMenuBtn');
+const userDropdown = document.getElementById('userDropdown');
+
+if (userMenuBtn && userDropdown) {
+    userMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!userMenuBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+            userDropdown.classList.remove('active');
+        }
+    });
+
+    // Close dropdown when pressing Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            userDropdown.classList.remove('active');
+        }
+    });
+}
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
     console.log('FurniStore website loaded successfully!');

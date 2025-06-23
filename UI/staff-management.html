@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/staff-management.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-couch"></i> FurniStore</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="index.html#products" class="nav-link">Sản phẩm</a></li>
+                    <li><a href="refund.html" class="nav-link">Hoàn trả</a></li>
+                    <li><a href="promotion.html" class="nav-link">Khuyến mãi</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin Portal</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="user-profile.html"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="staff-management.html" class="active"><i class="fas fa-users-cog"></i> Quản lý nhân viên</a>
+                        <a href="customer-history.html"><i class="fas fa-history"></i> Lịch sử khách hàng</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <a href="user-profile.html">User Management</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="current">Staff Management</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="staff-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-users-cog"></i> Staff Management</h1>
+                <p>Quản lý tài khoản nhân viên, phân quyền và theo dõi hoạt động</p>
+            </div>
+            <div class="hero-actions">
+                <button class="btn-primary" id="addStaffBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Thêm nhân viên
+                </button>
+                <button class="btn-secondary" id="bulkActionBtn">
+                    <i class="fas fa-tasks"></i>
+                    Thao tác hàng loạt
+                </button>
+                <button class="btn-outline" id="exportBtn">
+                    <i class="fas fa-download"></i>
+                    Xuất báo cáo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Dashboard -->
+    <section class="stats-dashboard">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card total-staff">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>25</h3>
+                        <p>Tổng số nhân viên</p>
+                        <span class="stat-change positive">+3 tháng này</span>
+                    </div>
+                </div>
+                <div class="stat-card active-staff">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>23</h3>
+                        <p>Nhân viên hoạt động</p>
+                        <span class="stat-change neutral">92% tổng số</span>
+                    </div>
+                </div>
+                <div class="stat-card departments">
+                    <div class="stat-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>5</h3>
+                        <p>Phòng ban</p>
+                        <span class="stat-change neutral">Sales, Support, Admin, IT, HR</span>
+                    </div>
+                </div>
+                <div class="stat-card avg-performance">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8.7</h3>
+                        <p>Đánh giá trung bình</p>
+                        <span class="stat-change positive">+0.3 tháng này</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="staff-main">
+        <div class="container">
+            <!-- Filter and Search -->
+            <div class="toolbar">
+                <div class="search-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm nhân viên...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="departmentFilter" class="filter-select">
+                            <option value="">Tất cả phòng ban</option>
+                            <option value="sales">Sales</option>
+                            <option value="support">Support</option>
+                            <option value="admin">Admin</option>
+                            <option value="it">IT</option>
+                            <option value="hr">HR</option>
+                        </select>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="active">Hoạt động</option>
+                            <option value="inactive">Tạm ngừng</option>
+                            <option value="pending">Chờ xét duyệt</option>
+                        </select>
+                        <select id="roleFilter" class="filter-select">
+                            <option value="">Tất cả vai trò</option>
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="staff">Staff</option>
+                            <option value="intern">Intern</option>
+                        </select>
+                        <button class="filter-btn" id="advancedFilterBtn">
+                            <i class="fas fa-filter"></i>
+                            Bộ lọc nâng cao
+                        </button>
+                    </div>
+                </div>
+                <div class="view-controls">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="name_asc">Tên A-Z</option>
+                        <option value="name_desc">Tên Z-A</option>
+                        <option value="joined_desc">Mới gia nhập</option>
+                        <option value="joined_asc">Cũ nhất</option>
+                        <option value="performance_desc">Hiệu suất cao</option>
+                        <option value="department_asc">Phòng ban A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Staff List/Grid -->
+            <div class="staff-container">
+                <div class="staff-grid" id="staffGrid">
+                    <!-- Admin Staff -->
+                    <div class="staff-card admin" data-department="admin" data-status="active" data-role="admin">
+                        <div class="staff-header">
+                            <div class="staff-avatar">
+                                <img src="https://via.placeholder.com/80x80/dc2626/ffffff?text=NV" alt="Admin Avatar">
+                                <div class="status-indicator active"></div>
+                            </div>
+                            <div class="staff-actions">
+                                <button class="action-btn" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Tạm khóa">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="staff-info">
+                            <h3>Nguyễn Văn Admin</h3>
+                            <p class="staff-position">
+                                <i class="fas fa-crown"></i>
+                                System Administrator
+                            </p>
+                            <div class="staff-details">
+                                <span class="department admin">
+                                    <i class="fas fa-building"></i>
+                                    Admin
+                                </span>
+                                <span class="role admin">
+                                    <i class="fas fa-user-shield"></i>
+                                    Admin
+                                </span>
+                            </div>
+                        </div>
+                        <div class="staff-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Gia nhập:</span>
+                                <span class="stat-value">01/01/2020</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Hiệu suất:</span>
+                                <span class="stat-value excellent">9.8/10</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Hoạt động cuối:</span>
+                                <span class="stat-value">2 phút trước</span>
+                            </div>
+                        </div>
+                        <div class="staff-contact">
+                            <a href="mailto:admin@furnistore.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                admin@furnistore.com
+                            </a>
+                            <a href="tel:+84123456789" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +84 123 456 789
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Sales Manager -->
+                    <div class="staff-card manager" data-department="sales" data-status="active" data-role="manager">
+                        <div class="staff-header">
+                            <div class="staff-avatar">
+                                <img src="https://via.placeholder.com/80x80/059669/ffffff?text=LM" alt="Manager Avatar">
+                                <div class="status-indicator active"></div>
+                            </div>
+                            <div class="staff-actions">
+                                <button class="action-btn" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Tạm khóa">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="staff-info">
+                            <h3>Lê Thị Manager</h3>
+                            <p class="staff-position">
+                                <i class="fas fa-user-tie"></i>
+                                Sales Manager
+                            </p>
+                            <div class="staff-details">
+                                <span class="department sales">
+                                    <i class="fas fa-chart-line"></i>
+                                    Sales
+                                </span>
+                                <span class="role manager">
+                                    <i class="fas fa-users"></i>
+                                    Manager
+                                </span>
+                            </div>
+                        </div>
+                        <div class="staff-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Gia nhập:</span>
+                                <span class="stat-value">15/03/2021</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Hiệu suất:</span>
+                                <span class="stat-value good">9.2/10</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Team size:</span>
+                                <span class="stat-value">8 người</span>
+                            </div>
+                        </div>
+                        <div class="staff-contact">
+                            <a href="mailto:manager.sales@furnistore.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                manager.sales@furnistore.com
+                            </a>
+                            <a href="tel:+84987654321" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +84 987 654 321
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Sales Staff -->
+                    <div class="staff-card staff" data-department="sales" data-status="active" data-role="staff">
+                        <div class="staff-header">
+                            <div class="staff-avatar">
+                                <img src="https://via.placeholder.com/80x80/2563eb/ffffff?text=TB" alt="Staff Avatar">
+                                <div class="status-indicator active"></div>
+                            </div>
+                            <div class="staff-actions">
+                                <button class="action-btn" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Tạm khóa">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="staff-info">
+                            <h3>Trần Văn Bình</h3>
+                            <p class="staff-position">
+                                <i class="fas fa-handshake"></i>
+                                Sales Executive
+                            </p>
+                            <div class="staff-details">
+                                <span class="department sales">
+                                    <i class="fas fa-chart-line"></i>
+                                    Sales
+                                </span>
+                                <span class="role staff">
+                                    <i class="fas fa-user"></i>
+                                    Staff
+                                </span>
+                            </div>
+                        </div>
+                        <div class="staff-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Gia nhập:</span>
+                                <span class="stat-value">10/09/2022</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Hiệu suất:</span>
+                                <span class="stat-value good">8.5/10</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Doanh số tháng:</span>
+                                <span class="stat-value">45M VNĐ</span>
+                            </div>
+                        </div>
+                        <div class="staff-contact">
+                            <a href="mailto:binh.sales@furnistore.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                binh.sales@furnistore.com
+                            </a>
+                            <a href="tel:+84555123456" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +84 555 123 456
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Support Staff -->
+                    <div class="staff-card staff" data-department="support" data-status="active" data-role="staff">
+                        <div class="staff-header">
+                            <div class="staff-avatar">
+                                <img src="https://via.placeholder.com/80x80/7c3aed/ffffff?text=NH" alt="Support Avatar">
+                                <div class="status-indicator active"></div>
+                            </div>
+                            <div class="staff-actions">
+                                <button class="action-btn" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Tạm khóa">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="staff-info">
+                            <h3>Phạm Thị Hoa</h3>
+                            <p class="staff-position">
+                                <i class="fas fa-headset"></i>
+                                Customer Support
+                            </p>
+                            <div class="staff-details">
+                                <span class="department support">
+                                    <i class="fas fa-life-ring"></i>
+                                    Support
+                                </span>
+                                <span class="role staff">
+                                    <i class="fas fa-user"></i>
+                                    Staff
+                                </span>
+                            </div>
+                        </div>
+                        <div class="staff-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Gia nhập:</span>
+                                <span class="stat-value">20/06/2023</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Hiệu suất:</span>
+                                <span class="stat-value excellent">9.5/10</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Tickets/tháng:</span>
+                                <span class="stat-value">156 cases</span>
+                            </div>
+                        </div>
+                        <div class="staff-contact">
+                            <a href="mailto:hoa.support@furnistore.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                hoa.support@furnistore.com
+                            </a>
+                            <a href="tel:+84777888999" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +84 777 888 999
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Inactive Staff -->
+                    <div class="staff-card staff inactive" data-department="it" data-status="inactive" data-role="staff">
+                        <div class="staff-header">
+                            <div class="staff-avatar">
+                                <img src="https://via.placeholder.com/80x80/6b7280/ffffff?text=DN" alt="IT Avatar">
+                                <div class="status-indicator inactive"></div>
+                            </div>
+                            <div class="staff-actions">
+                                <button class="action-btn" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Kích hoạt">
+                                    <i class="fas fa-unlock"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="staff-info">
+                            <h3>Đỗ Văn Nam</h3>
+                            <p class="staff-position">
+                                <i class="fas fa-code"></i>
+                                IT Support
+                            </p>
+                            <div class="staff-details">
+                                <span class="department it">
+                                    <i class="fas fa-laptop-code"></i>
+                                    IT
+                                </span>
+                                <span class="role staff">
+                                    <i class="fas fa-user"></i>
+                                    Staff
+                                </span>
+                                <span class="status-badge inactive">Tạm ngừng</span>
+                            </div>
+                        </div>
+                        <div class="staff-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Gia nhập:</span>
+                                <span class="stat-value">05/12/2021</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Hiệu suất:</span>
+                                <span class="stat-value average">7.8/10</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Nghỉ từ:</span>
+                                <span class="stat-value">15/06/2025</span>
+                            </div>
+                        </div>
+                        <div class="staff-contact">
+                            <a href="mailto:nam.it@furnistore.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                nam.it@furnistore.com
+                            </a>
+                            <a href="tel:+84333444555" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +84 333 444 555
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Pending Staff -->
+                    <div class="staff-card intern pending" data-department="hr" data-status="pending" data-role="intern">
+                        <div class="staff-header">
+                            <div class="staff-avatar">
+                                <img src="https://via.placeholder.com/80x80/f59e0b/ffffff?text=VT" alt="Intern Avatar">
+                                <div class="status-indicator pending"></div>
+                            </div>
+                            <div class="staff-actions">
+                                <button class="action-btn" title="Phê duyệt">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="action-btn" title="Từ chối">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <button class="action-btn" title="Xem hồ sơ">
+                                    <i class="fas fa-file-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="staff-info">
+                            <h3>Vũ Thị Trang</h3>
+                            <p class="staff-position">
+                                <i class="fas fa-graduation-cap"></i>
+                                HR Intern
+                            </p>
+                            <div class="staff-details">
+                                <span class="department hr">
+                                    <i class="fas fa-user-friends"></i>
+                                    HR
+                                </span>
+                                <span class="role intern">
+                                    <i class="fas fa-user-graduate"></i>
+                                    Intern
+                                </span>
+                                <span class="status-badge pending">Chờ duyệt</span>
+                            </div>
+                        </div>
+                        <div class="staff-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Ứng tuyển:</span>
+                                <span class="stat-value">20/06/2025</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Kinh nghiệm:</span>
+                                <span class="stat-value">Mới tốt nghiệp</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Trường:</span>
+                                <span class="stat-value">ĐH Kinh tế Quốc dân</span>
+                            </div>
+                        </div>
+                        <div class="staff-contact">
+                            <a href="mailto:trang.intern@furnistore.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                trang.intern@furnistore.com
+                            </a>
+                            <a href="tel:+84666777888" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                +84 666 777 888
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Không tìm thấy nhân viên</h3>
+                    <p>Thử thay đổi bộ lọc hoặc thêm nhân viên mới</p>
+                    <button class="btn-primary" id="createFirstStaff">
+                        <i class="fas fa-user-plus"></i>
+                        Thêm nhân viên đầu tiên
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-dots">...</span>
+                <button class="page-btn">8</button>
+                <button class="page-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-couch"></i> FurniStore</h3>
+                    <p>Nơi cung cấp nội thất chất lượng cao cho ngôi nhà của bạn.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="index.html#products">Sản phẩm</a></li>
+                        <li><a href="refund.html">Hoàn trả</a></li>
+                        <li><a href="promotion.html">Khuyến mãi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FurniStore. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Add/Edit Staff -->
+    <div class="modal-overlay" id="staffModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Thêm nhân viên mới</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="staffForm" class="staff-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="staffName">Họ và tên *</label>
+                            <input type="text" id="staffName" name="name" required placeholder="VD: Nguyễn Văn A">
+                        </div>
+                        <div class="form-group">
+                            <label for="staffEmail">Email *</label>
+                            <input type="email" id="staffEmail" name="email" required placeholder="VD: nva@furnistore.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="staffPhone">Số điện thoại</label>
+                            <input type="tel" id="staffPhone" name="phone" placeholder="VD: +84 123 456 789">
+                        </div>
+                        <div class="form-group">
+                            <label for="staffPosition">Vị trí công việc *</label>
+                            <input type="text" id="staffPosition" name="position" required placeholder="VD: Sales Executive">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="staffDepartment">Phòng ban *</label>
+                            <select id="staffDepartment" name="department" required>
+                                <option value="">Chọn phòng ban</option>
+                                <option value="sales">Sales</option>
+                                <option value="support">Support</option>
+                                <option value="admin">Admin</option>
+                                <option value="it">IT</option>
+                                <option value="hr">HR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="staffRole">Vai trò *</label>
+                            <select id="staffRole" name="role" required>
+                                <option value="">Chọn vai trò</option>
+                                <option value="admin">Admin</option>
+                                <option value="manager">Manager</option>
+                                <option value="staff">Staff</option>
+                                <option value="intern">Intern</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Ngày bắt đầu làm việc</label>
+                            <input type="date" id="startDate" name="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Mức lương</label>
+                            <input type="number" id="salary" name="salary" placeholder="VD: 15000000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="staffNotes">Ghi chú</label>
+                        <textarea id="staffNotes" name="notes" rows="3" placeholder="Ghi chú về nhân viên..."></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="sendWelcomeEmail" name="sendWelcome" checked>
+                            <span class="checkmark"></span>
+                            Gửi email chào mừng
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="saveDraftBtn">
+                            <i class="fas fa-save"></i>
+                            Lưu nháp
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Thêm nhân viên
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/staff-management.js"></script>
+</body>
+</html>
