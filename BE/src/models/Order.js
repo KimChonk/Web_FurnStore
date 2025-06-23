@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const orderItemSchema = new mongoose.Schema({
   product: {
@@ -220,5 +221,7 @@ orderSchema.statics.getRevenueByMonth = async function(year = new Date().getFull
   ]);
   return stats;
 };
+
+orderSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Order', orderSchema);
