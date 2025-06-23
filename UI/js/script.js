@@ -169,9 +169,8 @@ function showProductModal(productName) {
             padding: 0.5rem 0;
             color: #333;
         }
-        
-        .product-features i {
-            color: #3498db;
+          .product-features i {
+            color: #dc2626;
             margin-right: 0.5rem;
         }
         
@@ -184,28 +183,49 @@ function showProductModal(productName) {
         .btn-primary, .btn-secondary {
             padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
         
         .btn-primary {
-            background: #3498db;
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
             color: white;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
         }
         
         .btn-primary:hover {
-            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
         }
         
         .btn-secondary {
-            background: #6c757d;
+            background: #6b7280;
             color: white;
+            border: 2px solid #dc2626;
         }
         
         .btn-secondary:hover {
-            background: #5a6268;
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
         }
         
         @keyframes fadeIn {
@@ -311,10 +331,9 @@ function showNotification(message, type = 'info') {
             z-index: 3000;
             animation: slideInRight 0.3s ease;
         }
-        
-        .notification-success { background: #27ae60; }
-        .notification-error { background: #e74c3c; }
-        .notification-info { background: #3498db; }
+          .notification-success { background: linear-gradient(135deg, #16a085 0%, #27ae60 100%); }
+        .notification-error { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); }
+        .notification-info { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); }
         
         @keyframes slideInRight {
             from { transform: translateX(100%); opacity: 0; }
@@ -353,14 +372,13 @@ window.addEventListener('scroll', () => {
         scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
         
         // Add scroll to top styles
-        const scrollBtnStyles = `
-            .scroll-to-top {
+        const scrollBtnStyles = `            .scroll-to-top {
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                width: 50px;
-                height: 50px;
-                background: #3498db;
+                width: 55px;
+                height: 55px;
+                background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
                 color: white;
                 border: none;
                 border-radius: 50%;
@@ -368,8 +386,9 @@ window.addEventListener('scroll', () => {
                 font-size: 1.2rem;
                 opacity: 0;
                 visibility: hidden;
-                transition: all 0.3s ease;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 1500;
+                box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
             }
             
             .scroll-to-top.visible {
@@ -378,8 +397,9 @@ window.addEventListener('scroll', () => {
             }
             
             .scroll-to-top:hover {
-                background: #2980b9;
-                transform: translateY(-2px);
+                background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(220, 38, 38, 0.5);
             }
         `;
         
@@ -431,11 +451,12 @@ window.addEventListener('scroll', () => {
 // Add active navigation styles
 const activeNavStyles = `
     .nav-link.active {
-        color: #3498db !important;
+        color: #dc2626 !important;
+        background: #fef2f2 !important;
     }
     
     .nav-link.active::after {
-        width: 100% !important;
+        width: 80% !important;
     }
 `;
 
