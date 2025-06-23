@@ -36,6 +36,27 @@ Complete backend system for furniture store with authentication, user management
 - **SEO Optimization** - Meta tags, descriptions, keywords
 - **Category Analytics** - Usage statistics and analytics
 
+### 📊 Inventory Management
+- **Stock Check** - Real-time inventory monitoring and tracking
+- **Stock Update** - Comprehensive stock level management with transaction history
+- **Product Search in Warehouse** - Advanced warehouse product search with location mapping
+- **Damaged Product Report** - Complete damage reporting system with photo evidence
+- **Stock Alerts** - Automated low stock, overstock, and reorder alerts
+- **Inventory Analytics** - Detailed inventory performance and turnover analytics
+- **Warehouse Location Management** - Section, row, shelf, and bin tracking
+- **Transaction History** - Complete audit trail of all stock movements
+
+### 🎯 Promotion Management
+- **Promotion CRUD** - Complete promotion creation and management system
+- **Advanced Targeting** - Customer segmentation and precise targeting options
+- **Multiple Promotion Types** - Percentage, fixed amount, free shipping, buy X get Y, bundle deals
+- **Code Validation** - Real-time promotion code validation and application
+- **Usage Limits** - Total and per-customer usage restrictions
+- **Time-based Conditions** - Day of week, time of day, and date range restrictions
+- **Performance Analytics** - View tracking, conversion rates, and revenue analytics
+- **Staff Integration** - Quick promotion lookup and application for staff
+- **Display Management** - Featured promotions, banners, and visual customization
+
 ### 🛒 Order Management
 - **Order Creation** - Complete order placement system
 - **Order Status Management** - Full order lifecycle tracking
@@ -54,6 +75,15 @@ Complete backend system for furniture store with authentication, user management
 - **Delivery History** - Complete delivery performance tracking
 - **Photo Evidence** - Upload delivery proof photos with categorization
 - **Bulk Operations** - Efficient bulk delivery assignment for admins
+
+### 📞 Communication Features
+- **Customer Contact Info** - Access customer contact details for order
+- **Delivery Address Navigation** - Get delivery address with navigation link
+- **Call Customer** - Initiate call to customer from order
+- **Send SMS to Customer** - Send SMS notifications to customer
+- **Log Communication** - Log any communication with the customer
+- **Communication History** - View communication history for an order
+- **SMS Templates** - Predefined SMS templates for common notifications
 
 ### 🛡️ Security Features
 - **Password Hashing** - bcrypt with salt rounds
@@ -117,6 +147,38 @@ Complete backend system for furniture store with authentication, user management
 - `POST /api/delivery/:orderId/photos` - Upload delivery proof photos
 - `POST /api/delivery/incident` - Report emergency incident
 - `POST /api/delivery/bulk-assign` - Bulk assign orders (Admin)
+
+### 📞 Communication Features API
+- `GET /api/communication/order/:orderId/contact` - Get customer contact info
+- `GET /api/communication/order/:orderId/address` - Get delivery address with navigation
+- `POST /api/communication/order/:orderId/call` - Initiate customer call
+- `POST /api/communication/order/:orderId/sms` - Send SMS to customer
+- `POST /api/communication/order/:orderId/log` - Log communication activity
+- `GET /api/communication/order/:orderId/history` - Get communication history
+- `GET /api/communication/sms-templates` - Get SMS templates
+
+### 📊 Inventory Management API
+- `GET /api/inventory` - Get inventory overview with filtering and pagination
+- `GET /api/inventory/product/:productId` - Get specific product inventory details
+- `PUT /api/inventory/product/:productId/stock` - Update stock levels
+- `GET /api/inventory/search` - Search products in warehouse with location mapping
+- `POST /api/inventory/product/:productId/damaged` - Report damaged products
+- `GET /api/inventory/damaged` - Get damaged products report
+- `GET /api/inventory/alerts` - Get stock alerts (low stock, overstock, etc.)
+- `GET /api/inventory/analytics` - Get inventory analytics and performance metrics
+
+### 🎯 Promotion Management API
+- `GET /api/promotions` - Get all promotions (Admin/Staff)
+- `POST /api/promotions` - Create new promotion (Admin)
+- `GET /api/promotions/active` - Get active promotions for public display
+- `GET /api/promotions/staff` - Get promotions for staff use
+- `GET /api/promotions/:id` - Get single promotion details
+- `PUT /api/promotions/:id` - Update promotion (Admin)
+- `POST /api/promotions/:id/approve` - Approve promotion (Admin)
+- `DELETE /api/promotions/:id` - Delete promotion (Admin)
+- `POST /api/promotions/validate/:code` - Validate promotion code
+- `POST /api/promotions/:id/view` - Track promotion view
+- `GET /api/promotions/analytics` - Get promotion analytics
 
 ## Rate Limits
 - **Registration**: 3 attempts per hour
@@ -185,6 +247,9 @@ npm run dev
 - [User Management API](USER_MANAGEMENT_API.md) - Detailed user management documentation
 - [Order Management API](ORDER_MANAGEMENT_API.md) - Complete order management documentation
 - [Delivery Management API](DELIVERY_MANAGEMENT_API.md) - Complete delivery management documentation
+- [Communication Features API](COMMUNICATION_FEATURES_API.md) - Customer communication and contact management
+- [Inventory Management API](INVENTORY_MANAGEMENT_API.md) - Complete warehouse and stock management documentation
+- [Promotion Management API](PROMOTION_MANAGEMENT_API.md) - Comprehensive promotion and discount management
 
 ## Quick Start Examples
 
@@ -257,4 +322,128 @@ curl -X POST http://localhost:3000/api/delivery/order_id/failure \
   -H "Authorization: Bearer DELIVERY_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"reason":"customer_not_available"}'
+```
+
+### Communication Features
+```bash
+# Get customer contact info
+curl -X GET http://localhost:3000/api/communication/order/order_id/contact \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Get delivery address with navigation
+curl -X GET http://localhost:3000/api/communication/order/order_id/address \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Initiate customer call
+curl -X POST http://localhost:3000/api/communication/order/order_id/call \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Send SMS to customer
+curl -X POST http://localhost:3000/api/communication/order/order_id/sms \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Your order has been shipped!"}'
+
+# Log communication activity
+curl -X POST http://localhost:3000/api/communication/order/order_id/log \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"type":"call","notes":"Called customer to confirm order details"}'
+
+# Get communication history
+curl -X GET http://localhost:3000/api/communication/order/order_id/history \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Get SMS templates
+curl -X GET http://localhost:3000/api/communication/sms-templates \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+```
+
+### Inventory Management
+```bash
+# Get inventory overview
+curl -X GET http://localhost:3000/api/inventory \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Get specific product inventory details
+curl -X GET http://localhost:3000/api/inventory/product/product_id \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Update stock levels
+curl -X PUT http://localhost:3000/api/inventory/product/product_id/stock \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"stock":100}'
+
+# Search products in warehouse
+curl -X GET http://localhost:3000/api/inventory/search?query=chair \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Report damaged products
+curl -X POST http://localhost:3000/api/inventory/product/product_id/damaged \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"quantity":1,"description":"Broken leg"}'
+
+# Get damaged products report
+curl -X GET http://localhost:3000/api/inventory/damaged \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Get stock alerts
+curl -X GET http://localhost:3000/api/inventory/alerts \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Get inventory analytics
+curl -X GET http://localhost:3000/api/inventory/analytics \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+```
+
+### Promotion Management
+```bash
+# Get all promotions
+curl -X GET http://localhost:3000/api/promotions \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Create new promotion
+curl -X POST http://localhost:3000/api/promotions \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Summer Sale","discountType":"percentage","discountValue":20,"startDate":"2023-06-01","endDate":"2023-06-30"}'
+
+# Get active promotions for public display
+curl -X GET http://localhost:3000/api/promotions/active
+
+# Get promotions for staff use
+curl -X GET http://localhost:3000/api/promotions/staff \
+  -H "Authorization: Bearer STAFF_JWT_TOKEN"
+
+# Get single promotion details
+curl -X GET http://localhost:3000/api/promotions/promotion_id \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Update promotion
+curl -X PUT http://localhost:3000/api/promotions/promotion_id \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"discountValue":25}'
+
+# Approve promotion
+curl -X POST http://localhost:3000/api/promotions/promotion_id/approve \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Delete promotion
+curl -X DELETE http://localhost:3000/api/promotions/promotion_id \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# Validate promotion code
+curl -X POST http://localhost:3000/api/promotions/validate/PROMO2023 \
+  -H "Authorization: Bearer CUSTOMER_JWT_TOKEN"
+
+# Track promotion view
+curl -X POST http://localhost:3000/api/promotions/promotion_id/view \
+  -H "Authorization: Bearer CUSTOMER_JWT_TOKEN"
+
+# Get promotion analytics
+curl -X GET http://localhost:3000/api/promotions/analytics \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
 ```
