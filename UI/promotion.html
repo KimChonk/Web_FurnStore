@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotion Management - FurniStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/promotion.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2><i class="fas fa-couch"></i> FurniStore</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="index.html#products" class="nav-link">Sản phẩm</a></li>
+                    <li><a href="refund.html" class="nav-link">Hoàn trả</a></li>
+                    <li><a href="promotion.html" class="nav-link active">Khuyến mãi</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Staff Portal</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#profile"><i class="fas fa-user"></i> Hồ sơ</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Cài đặt</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                <span class="current">Promotion Management</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="promotion-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-tags"></i> Promotion Management</h1>
+                <p>Quản lý chương trình khuyến mãi, giảm giá và ưu đãi đặc biệt</p>
+            </div>
+            <div class="hero-actions">
+                <button class="btn-primary" id="addPromotionBtn">
+                    <i class="fas fa-plus"></i>
+                    Tạo khuyến mãi mới
+                </button>
+                <button class="btn-secondary" id="bulkActionBtn">
+                    <i class="fas fa-tasks"></i>
+                    Thao tác hàng loạt
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Dashboard -->
+    <section class="stats-dashboard">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card active-promotions">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Khuyến mãi đang hoạt động</p>
+                        <span class="stat-change positive">+3 tuần này</span>
+                    </div>
+                </div>
+                <div class="stat-card total-savings">
+                    <div class="stat-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2.5M VNĐ</h3>
+                        <p>Tổng tiết kiệm khách hàng</p>
+                        <span class="stat-change positive">+15% tháng này</span>
+                    </div>
+                </div>
+                <div class="stat-card usage-rate">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>78%</h3>
+                        <p>Tỷ lệ sử dụng mã giảm giá</p>
+                        <span class="stat-change positive">+5% tuần này</span>
+                    </div>
+                </div>
+                <div class="stat-card revenue-impact">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>45M VNĐ</h3>
+                        <p>Doanh thu từ khuyến mãi</p>
+                        <span class="stat-change positive">+22% tháng này</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="promotion-main">
+        <div class="container">
+            <!-- Filter and Search -->
+            <div class="toolbar">
+                <div class="search-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm khuyến mãi...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="active">Đang hoạt động</option>
+                            <option value="scheduled">Đã lên lịch</option>
+                            <option value="expired">Đã hết hạn</option>
+                            <option value="draft">Bản nháp</option>
+                        </select>
+                        <select id="typeFilter" class="filter-select">
+                            <option value="">Tất cả loại</option>
+                            <option value="percentage">Giảm theo %</option>
+                            <option value="fixed">Giảm số tiền cố định</option>
+                            <option value="bogo">Mua 1 tặng 1</option>
+                            <option value="freeship">Miễn phí vận chuyển</option>
+                        </select>
+                        <button class="filter-btn" id="advancedFilterBtn">
+                            <i class="fas fa-filter"></i>
+                            Bộ lọc nâng cao
+                        </button>
+                    </div>
+                </div>
+                <div class="view-controls">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="created_desc">Mới nhất</option>
+                        <option value="created_asc">Cũ nhất</option>
+                        <option value="name_asc">Tên A-Z</option>
+                        <option value="name_desc">Tên Z-A</option>
+                        <option value="discount_desc">Giảm giá cao nhất</option>
+                        <option value="usage_desc">Sử dụng nhiều nhất</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Promotion List/Grid -->
+            <div class="promotion-container">
+                <div class="promotion-grid" id="promotionGrid">
+                    <!-- Active Promotion -->
+                    <div class="promotion-card active" data-status="active" data-type="percentage">
+                        <div class="promotion-header">
+                            <div class="promotion-status">
+                                <span class="status-badge active">Đang hoạt động</span>
+                                <div class="promotion-actions">
+                                    <button class="action-btn" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="action-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="promotion-title">
+                                <h3>Flash Sale Cuối Tuần</h3>
+                                <p class="promotion-code">Mã: WEEKEND50</p>
+                            </div>
+                        </div>
+                        <div class="promotion-body">
+                            <div class="discount-info">
+                                <div class="discount-value">
+                                    <span class="discount-number">50%</span>
+                                    <span class="discount-type">Giảm giá</span>
+                                </div>
+                                <div class="promotion-details">
+                                    <p><i class="fas fa-calendar"></i> 15/06/2025 - 18/06/2025</p>
+                                    <p><i class="fas fa-shopping-cart"></i> Đơn tối thiểu: 2M VNĐ</p>
+                                    <p><i class="fas fa-users"></i> Đã sử dụng: 245/500</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 49%"></div>
+                            </div>
+                            <div class="progress-text">49% đã sử dụng</div>
+                        </div>
+                        <div class="promotion-footer">
+                            <div class="performance-metrics">
+                                <span class="metric">
+                                    <i class="fas fa-eye"></i>
+                                    1,250 lượt xem
+                                </span>
+                                <span class="metric">
+                                    <i class="fas fa-chart-line"></i>
+                                    19.6% tỷ lệ chuyển đổi
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scheduled Promotion -->
+                    <div class="promotion-card scheduled" data-status="scheduled" data-type="fixed">
+                        <div class="promotion-header">
+                            <div class="promotion-status">
+                                <span class="status-badge scheduled">Đã lên lịch</span>
+                                <div class="promotion-actions">
+                                    <button class="action-btn" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="action-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="promotion-title">
+                                <h3>Khuyến Mãi Tết Nguyên Đán</h3>
+                                <p class="promotion-code">Mã: TET2025</p>
+                            </div>
+                        </div>
+                        <div class="promotion-body">
+                            <div class="discount-info">
+                                <div class="discount-value">
+                                    <span class="discount-number">500K</span>
+                                    <span class="discount-type">Giảm tiền</span>
+                                </div>
+                                <div class="promotion-details">
+                                    <p><i class="fas fa-calendar"></i> 28/01/2025 - 05/02/2025</p>
+                                    <p><i class="fas fa-shopping-cart"></i> Đơn tối thiểu: 5M VNĐ</p>
+                                    <p><i class="fas fa-users"></i> Giới hạn: 0/1000</p>
+                                </div>
+                            </div>
+                            <div class="countdown-timer">
+                                <i class="fas fa-clock"></i>
+                                <span>Còn 25 ngày để bắt đầu</span>
+                            </div>
+                        </div>
+                        <div class="promotion-footer">
+                            <div class="scheduled-actions">
+                                <button class="btn-outline">Khởi động ngay</button>
+                                <button class="btn-outline">Chỉnh sửa lịch</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOGO Promotion -->
+                    <div class="promotion-card active" data-status="active" data-type="bogo">
+                        <div class="promotion-header">
+                            <div class="promotion-status">
+                                <span class="status-badge active">Đang hoạt động</span>
+                                <div class="promotion-actions">
+                                    <button class="action-btn" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="action-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="promotion-title">
+                                <h3>Mua 1 Tặng 1 Ghế Sofa</h3>
+                                <p class="promotion-code">Mã: BOGO_SOFA</p>
+                            </div>
+                        </div>
+                        <div class="promotion-body">
+                            <div class="discount-info">
+                                <div class="discount-value bogo">
+                                    <span class="discount-number">1+1</span>
+                                    <span class="discount-type">Mua 1 tặng 1</span>
+                                </div>
+                                <div class="promotion-details">
+                                    <p><i class="fas fa-calendar"></i> 10/06/2025 - 20/06/2025</p>
+                                    <p><i class="fas fa-tag"></i> Áp dụng: Ghế sofa</p>
+                                    <p><i class="fas fa-users"></i> Đã sử dụng: 45/200</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 22.5%"></div>
+                            </div>
+                            <div class="progress-text">22.5% đã sử dụng</div>
+                        </div>
+                        <div class="promotion-footer">
+                            <div class="performance-metrics">
+                                <span class="metric">
+                                    <i class="fas fa-eye"></i>
+                                    890 lượt xem
+                                </span>
+                                <span class="metric">
+                                    <i class="fas fa-chart-line"></i>
+                                    5.1% tỷ lệ chuyển đổi
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expired Promotion -->
+                    <div class="promotion-card expired" data-status="expired" data-type="freeship">
+                        <div class="promotion-header">
+                            <div class="promotion-status">
+                                <span class="status-badge expired">Đã hết hạn</span>
+                                <div class="promotion-actions">
+                                    <button class="action-btn" title="Xem báo cáo">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </button>
+                                    <button class="action-btn" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="action-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="promotion-title">
+                                <h3>Miễn Phí Vận Chuyển</h3>
+                                <p class="promotion-code">Mã: FREESHIP</p>
+                            </div>
+                        </div>
+                        <div class="promotion-body">
+                            <div class="discount-info">
+                                <div class="discount-value freeship">
+                                    <span class="discount-number">0Đ</span>
+                                    <span class="discount-type">Phí ship</span>
+                                </div>
+                                <div class="promotion-details">
+                                    <p><i class="fas fa-calendar"></i> 01/06/2025 - 10/06/2025</p>
+                                    <p><i class="fas fa-shopping-cart"></i> Đơn tối thiểu: 1M VNĐ</p>
+                                    <p><i class="fas fa-users"></i> Đã sử dụng: 500/500</p>
+                                </div>
+                            </div>
+                            <div class="final-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Tổng doanh thu:</span>
+                                    <span class="stat-value">15.2M VNĐ</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">ROI:</span>
+                                    <span class="stat-value positive">+180%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promotion-footer">
+                            <button class="btn-outline">Xem báo cáo chi tiết</button>
+                            <button class="btn-outline">Tái kích hoạt</button>
+                        </div>
+                    </div>
+
+                    <!-- Draft Promotion -->
+                    <div class="promotion-card draft" data-status="draft" data-type="percentage">
+                        <div class="promotion-header">
+                            <div class="promotion-status">
+                                <span class="status-badge draft">Bản nháp</span>
+                                <div class="promotion-actions">
+                                    <button class="action-btn" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="action-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="promotion-title">
+                                <h3>Black Friday 2025</h3>
+                                <p class="promotion-code">Mã: BLACKFRIDAY</p>
+                            </div>
+                        </div>
+                        <div class="promotion-body">
+                            <div class="discount-info">
+                                <div class="discount-value">
+                                    <span class="discount-number">70%</span>
+                                    <span class="discount-type">Giảm giá</span>
+                                </div>
+                                <div class="promotion-details">
+                                    <p><i class="fas fa-calendar"></i> Chưa lên lịch</p>
+                                    <p><i class="fas fa-shopping-cart"></i> Đơn tối thiểu: 3M VNĐ</p>
+                                    <p><i class="fas fa-users"></i> Giới hạn: 0/2000</p>
+                                </div>
+                            </div>
+                            <div class="draft-notice">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Cần hoàn thiện thông tin trước khi kích hoạt</span>
+                            </div>
+                        </div>
+                        <div class="promotion-footer">
+                            <button class="btn-primary">Hoàn thiện & Kích hoạt</button>
+                            <button class="btn-outline">Lưu nháp</button>
+                        </div>
+                    </div>
+
+                    <!-- New Promotion -->
+                    <div class="promotion-card new" data-status="active" data-type="percentage">
+                        <div class="promotion-header">
+                            <div class="promotion-status">
+                                <span class="status-badge active">Đang hoạt động</span>
+                                <span class="new-label">Mới</span>
+                                <div class="promotion-actions">
+                                    <button class="action-btn" title="Chỉnh sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn" title="Sao chép">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="action-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="promotion-title">
+                                <h3>Giảm Giá Sinh Viên</h3>
+                                <p class="promotion-code">Mã: STUDENT20</p>
+                            </div>
+                        </div>
+                        <div class="promotion-body">
+                            <div class="discount-info">
+                                <div class="discount-value">
+                                    <span class="discount-number">20%</span>
+                                    <span class="discount-type">Giảm giá</span>
+                                </div>
+                                <div class="promotion-details">
+                                    <p><i class="fas fa-calendar"></i> 20/06/2025 - 31/12/2025</p>
+                                    <p><i class="fas fa-id-card"></i> Yêu cầu: Thẻ sinh viên</p>
+                                    <p><i class="fas fa-users"></i> Đã sử dụng: 5/∞</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar unlimited">
+                                <div class="progress-fill" style="width: 1%"></div>
+                            </div>
+                            <div class="progress-text">Không giới hạn</div>
+                        </div>
+                        <div class="promotion-footer">
+                            <div class="performance-metrics">
+                                <span class="metric">
+                                    <i class="fas fa-eye"></i>
+                                    45 lượt xem
+                                </span>
+                                <span class="metric">
+                                    <i class="fas fa-chart-line"></i>
+                                    11.1% tỷ lệ chuyển đổi
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Không tìm thấy khuyến mãi</h3>
+                    <p>Thử thay đổi bộ lọc hoặc tạo chương trình khuyến mãi mới</p>
+                    <button class="btn-primary" id="createFirstPromotion">
+                        <i class="fas fa-plus"></i>
+                        Tạo khuyến mãi đầu tiên
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-dots">...</span>
+                <button class="page-btn">10</button>
+                <button class="page-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-couch"></i> FurniStore</h3>
+                    <p>Nơi cung cấp nội thất chất lượng cao cho ngôi nhà của bạn.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="index.html#products">Sản phẩm</a></li>
+                        <li><a href="refund.html">Hoàn trả</a></li>
+                        <li><a href="promotion.html">Khuyến mãi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FurniStore. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Add/Edit Promotion -->
+    <div class="modal-overlay" id="promotionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Tạo chương trình khuyến mãi mới</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="promotionForm" class="promotion-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="promotionName">Tên chương trình *</label>
+                            <input type="text" id="promotionName" name="name" required placeholder="VD: Flash Sale Cuối Tuần">
+                        </div>
+                        <div class="form-group">
+                            <label for="promotionCode">Mã khuyến mãi *</label>
+                            <input type="text" id="promotionCode" name="code" required placeholder="VD: WEEKEND50">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="discountType">Loại giảm giá *</label>
+                            <select id="discountType" name="type" required>
+                                <option value="">Chọn loại giảm giá</option>
+                                <option value="percentage">Giảm theo phần trăm (%)</option>
+                                <option value="fixed">Giảm số tiền cố định</option>
+                                <option value="bogo">Mua 1 tặng 1</option>
+                                <option value="freeship">Miễn phí vận chuyển</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="discountValue">Giá trị giảm *</label>
+                            <input type="number" id="discountValue" name="value" required placeholder="VD: 50">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Ngày bắt đầu *</label>
+                            <input type="datetime-local" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Ngày kết thúc *</label>
+                            <input type="datetime-local" id="endDate" name="endDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="minOrder">Đơn hàng tối thiểu</label>
+                            <input type="number" id="minOrder" name="minOrder" placeholder="VD: 1000000">
+                        </div>
+                        <div class="form-group">
+                            <label for="usageLimit">Giới hạn sử dụng</label>
+                            <input type="number" id="usageLimit" name="usageLimit" placeholder="VD: 500">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Mô tả chi tiết</label>
+                        <textarea id="description" name="description" rows="3" placeholder="Mô tả chi tiết về chương trình khuyến mãi..."></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="autoActivate" name="autoActivate">
+                            <span class="checkmark"></span>
+                            Tự động kích hoạt khi đến thời gian
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="saveDraftBtn">
+                            <i class="fas fa-save"></i>
+                            Lưu nháp
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-check"></i>
+                            Tạo khuyến mãi
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/promotion.js"></script>
+</body>
+</html>
